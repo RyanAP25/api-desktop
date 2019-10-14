@@ -57,6 +57,8 @@ public class ApiJFrame extends javax.swing.JFrame {
         ProvinsiEditNameLabel = new javax.swing.JLabel();
         ProvinsiEditPopulationsLabel = new javax.swing.JLabel();
         ProvinsiEditPopulationsTf = new javax.swing.JTextField();
+        ProvinsiEditIdWeatherLabel = new javax.swing.JLabel();
+        ProvinsiEditIdWeatherTf = new javax.swing.JTextField();
         MainPanel = new javax.swing.JScrollPane();
 
         ProvinsiPanel.setBackground(new java.awt.Color(102, 102, 102));
@@ -185,6 +187,10 @@ public class ApiJFrame extends javax.swing.JFrame {
         ProvinsiEditPopulationsLabel.setForeground(new java.awt.Color(255, 255, 255));
         ProvinsiEditPopulationsLabel.setText("Populations        :");
 
+        ProvinsiEditIdWeatherLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        ProvinsiEditIdWeatherLabel.setForeground(new java.awt.Color(255, 255, 255));
+        ProvinsiEditIdWeatherLabel.setText("Id Weather (OpenWeather Id) :");
+
         javax.swing.GroupLayout ProvinsiEditPanelLayout = new javax.swing.GroupLayout(ProvinsiEditPanel);
         ProvinsiEditPanel.setLayout(ProvinsiEditPanelLayout);
         ProvinsiEditPanelLayout.setHorizontalGroup(
@@ -192,9 +198,6 @@ public class ApiJFrame extends javax.swing.JFrame {
             .addGroup(ProvinsiEditPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(ProvinsiEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ProvinsiEditPanelLayout.createSequentialGroup()
-                        .addComponent(ProvinsiEditPopulationsTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(ProvinsiEditPanelLayout.createSequentialGroup()
                         .addGroup(ProvinsiEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ProvinsiEditNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,7 +209,13 @@ public class ApiJFrame extends javax.swing.JFrame {
                                 .addComponent(ProvinsiEditId))
                             .addComponent(ProvinsiEditNameLabel)
                             .addComponent(ProvinsiEditPopulationsLabel))
-                        .addGap(307, 660, Short.MAX_VALUE))))
+                        .addGap(307, 660, Short.MAX_VALUE))
+                    .addGroup(ProvinsiEditPanelLayout.createSequentialGroup()
+                        .addGroup(ProvinsiEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ProvinsiEditIdWeatherTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ProvinsiEditPopulationsTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ProvinsiEditIdWeatherLabel))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         ProvinsiEditPanelLayout.setVerticalGroup(
             ProvinsiEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,9 +232,13 @@ public class ApiJFrame extends javax.swing.JFrame {
                 .addComponent(ProvinsiEditPopulationsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ProvinsiEditPopulationsTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(215, 215, 215)
+                .addGap(37, 37, 37)
+                .addComponent(ProvinsiEditIdWeatherLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ProvinsiEditIdWeatherTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(98, 98, 98)
                 .addComponent(ProvinsiEditButtonSave)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(ProvinsiEditButtonBack)
                 .addContainerGap())
         );
@@ -261,6 +274,7 @@ public class ApiJFrame extends javax.swing.JFrame {
             ProvinsiEditId.setText(prov.getId());
             ProvinsiEditNameTf.setText(prov.getName());
             ProvinsiEditPopulationsTf.setText(String.valueOf(prov.getPopulations()));
+            ProvinsiEditIdWeatherTf.setText(prov.getId_weather());
             MainPanel.setViewportView(ProvinsiEditPanel);
         }
     }//GEN-LAST:event_ProvinsiButtonEditActionPerformed
@@ -350,6 +364,8 @@ public class ApiJFrame extends javax.swing.JFrame {
     private javax.swing.JButton ProvinsiEditButtonSave;
     private javax.swing.JLabel ProvinsiEditId;
     private javax.swing.JLabel ProvinsiEditIdLabel;
+    private javax.swing.JLabel ProvinsiEditIdWeatherLabel;
+    private javax.swing.JTextField ProvinsiEditIdWeatherTf;
     private javax.swing.JLabel ProvinsiEditNameLabel;
     private javax.swing.JTextField ProvinsiEditNameTf;
     private javax.swing.JPanel ProvinsiEditPanel;
