@@ -87,7 +87,7 @@ public class DataHandler {
             p.setId(kb.get("id").toString());
             p.setName(kb.get("name").toString());
             p.setPopulations(Integer.parseInt(kb.get("populations").toString()));
-            p.setId_weather(kb.get("id_wether").toString());
+            p.setId_weather(kb.get("id_weather").toString());
         } catch (Exception e) {
 //            
         }
