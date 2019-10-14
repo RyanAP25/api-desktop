@@ -14,7 +14,9 @@ public class ApiClientDesktop {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        DataHandler dh = new DataHandler();
+        Provinsi prov = dh.getProvinsi("72");
+        System.out.println("id Weather : "+prov.getId_weather());
     }
     
 }
