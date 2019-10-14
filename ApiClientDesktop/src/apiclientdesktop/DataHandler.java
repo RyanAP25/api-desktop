@@ -60,7 +60,7 @@ public class DataHandler {
         return data;
     }
     
-    public Provinsi getProvinsi(String id) {
+    public Provinsi getProvinsi(String id)   {
         Provinsi p = new Provinsi();
         try {
             URL u = new URL("http://utsppk.000webhostapp.com/api/provinsi?idprov="+id);
@@ -92,5 +92,9 @@ public class DataHandler {
 //            
         }
         return p;
+    }
+    
+    public void addProvinsi(String id, String name, int populations, String id_weather) {
+        
     }
 }
