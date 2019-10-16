@@ -175,6 +175,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Tambah"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ProvinsiButtonAddActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -193,7 +196,6 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="ProvinsiEditNameTf" alignment="0" min="-2" pref="280" max="-2" attributes="0"/>
                               <Component id="ProvinsiEditButtonBack" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="ProvinsiEditButtonSave" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
@@ -204,10 +206,11 @@
                               <Component id="ProvinsiEditNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="ProvinsiEditPopulationsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="307" pref="660" max="32767" attributes="0"/>
+                          <EmptySpace min="497" pref="850" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="ProvinsiEditNameTf" min="-2" pref="280" max="-2" attributes="0"/>
                               <Component id="ProvinsiEditIdWeatherTf" min="-2" pref="280" max="-2" attributes="0"/>
                               <Component id="ProvinsiEditPopulationsTf" min="-2" pref="280" max="-2" attributes="0"/>
                               <Component id="ProvinsiEditIdWeatherLabel" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -338,6 +341,204 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="ProvinsiEditIdWeatherTf">
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="ProvinsiAddPanel">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="66" green="66" red="66" type="rgb"/>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="ProvinsiAddIdTf" min="-2" pref="280" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="ProvinsiAddErrorLabelId" pref="546" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="ProvinsiAddNametf" alignment="0" min="-2" pref="280" max="-2" attributes="0"/>
+                              <Component id="ProvinsiAddNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="ProvinsiAddErrorLabelName" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="ProvinsiAddPopulationTf" min="-2" pref="280" max="-2" attributes="0"/>
+                              <Component id="ProvinsiAddButtonBack" min="-2" max="-2" attributes="0"/>
+                              <Component id="ProvinsiAddButtonSave" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="ProvinsiAddIdLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="ProvinsiAddPopulationLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="ProvinsiAddIdWeatherTf" alignment="0" min="-2" pref="280" max="-2" attributes="0"/>
+                              <Component id="ProvinsiAddIdWeatherLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="ProvinsiAddIdLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="ProvinsiAddIdTf" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
+                      <Component id="ProvinsiAddErrorLabelId" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="ProvinsiAddNameLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="ProvinsiAddErrorLabelName" max="32767" attributes="0"/>
+                      <Component id="ProvinsiAddNametf" pref="60" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="ProvinsiAddPopulationLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="ProvinsiAddPopulationTf" min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                  <Component id="ProvinsiAddIdWeatherLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="ProvinsiAddIdWeatherTf" min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="ProvinsiAddButtonSave" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                  <Component id="ProvinsiAddButtonBack" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="ProvinsiAddButtonSave">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="99" red="0" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="11" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Simpan"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ProvinsiAddButtonSaveActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="ProvinsiAddButtonBack">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="99" green="33" red="0" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="11" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Kembali"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ProvinsiAddButtonBackActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="ProvinsiAddIdLabel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="11" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="ProvinsiAddIdTf"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Id Provinsi :"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="ProvinsiAddIdTf">
+        </Component>
+        <Component class="javax.swing.JLabel" name="ProvinsiAddErrorLabelId">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="11" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="cc" type="rgb"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="ProvinsiAddNameLabel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="11" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="ProvinsiAddNametf"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Nama Provinsi :"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="ProvinsiAddNametf">
+        </Component>
+        <Component class="javax.swing.JLabel" name="ProvinsiAddErrorLabelName">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="11" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="cc" type="rgb"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="ProvinsiAddPopulationTf">
+        </Component>
+        <Component class="javax.swing.JLabel" name="ProvinsiAddPopulationLabel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="11" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="ProvinsiAddPopulationTf"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Populasi :"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="ProvinsiAddIdWeatherLabel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="11" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="ProvinsiAddIdWeatherTf"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Id Weather (OpenWeather Id) :"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="ProvinsiAddIdWeatherTf">
         </Component>
       </SubComponents>
     </Container>

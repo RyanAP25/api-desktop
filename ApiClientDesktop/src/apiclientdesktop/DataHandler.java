@@ -6,12 +6,25 @@
 package apiclientdesktop;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -65,12 +78,20 @@ public class DataHandler {
         try {
             URL u = new URL("http://utsppk.000webhostapp.com/api/provinsi?idprov="+id);
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+            JSONParser par = new JSONParser();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
             conn.connect();
             if (conn.getResponseCode() != 200) {
-                throw new RuntimeException("Failed : HTTP Error code : "
-                        + conn.getResponseCode());
+                BufferedReader er = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                String line, pesan = null;
+                while((line = er.readLine()) != null) {
+                    pesan+=line;
+                }
+                pesan = pesan.substring(4);
+                JSONObject gagal = (JSONObject) par.parse(pesan);
+                System.out.println(gagal.get("message"));
+                
             }
             InputStreamReader in = new InputStreamReader(conn.getInputStream());
             BufferedReader br = new BufferedReader(in);
@@ -79,7 +100,6 @@ public class DataHandler {
             while ((output = br.readLine()) != null) {
                 result.append(output);
             }
-            org.json.simple.parser.JSONParser par = new org.json.simple.parser.JSONParser();
             JSONArray obj = (JSONArray) par.parse(result.toString());
             conn.disconnect();
             in.close();
@@ -92,9 +112,5 @@ public class DataHandler {
 //            
         }
         return p;
-    }
-    
-    public void addProvinsi(String id, String name, int populations, String id_weather) {
-        
     }
 }

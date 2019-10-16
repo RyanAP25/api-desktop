@@ -5,15 +5,34 @@
  */
 package apiclientdesktop;
 
+import com.sun.org.apache.bcel.internal.generic.JsrInstruction;
 import java.awt.Color;
 import java.awt.Font;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.*;
 
 /**
  *
@@ -59,6 +78,19 @@ public class ApiJFrame extends javax.swing.JFrame {
         ProvinsiEditPopulationsTf = new javax.swing.JTextField();
         ProvinsiEditIdWeatherLabel = new javax.swing.JLabel();
         ProvinsiEditIdWeatherTf = new javax.swing.JTextField();
+        ProvinsiAddPanel = new javax.swing.JPanel();
+        ProvinsiAddButtonSave = new javax.swing.JButton();
+        ProvinsiAddButtonBack = new javax.swing.JButton();
+        ProvinsiAddIdLabel = new javax.swing.JLabel();
+        ProvinsiAddIdTf = new javax.swing.JTextField();
+        ProvinsiAddErrorLabelId = new javax.swing.JLabel();
+        ProvinsiAddNameLabel = new javax.swing.JLabel();
+        ProvinsiAddNametf = new javax.swing.JTextField();
+        ProvinsiAddErrorLabelName = new javax.swing.JLabel();
+        ProvinsiAddPopulationTf = new javax.swing.JTextField();
+        ProvinsiAddPopulationLabel = new javax.swing.JLabel();
+        ProvinsiAddIdWeatherLabel = new javax.swing.JLabel();
+        ProvinsiAddIdWeatherTf = new javax.swing.JTextField();
         MainPanel = new javax.swing.JScrollPane();
 
         ProvinsiPanel.setBackground(new java.awt.Color(102, 102, 102));
@@ -119,6 +151,11 @@ public class ApiJFrame extends javax.swing.JFrame {
         ProvinsiButtonAdd.setFont(new java.awt.Font("Raleway", 1, 11)); // NOI18N
         ProvinsiButtonAdd.setForeground(new java.awt.Color(255, 255, 255));
         ProvinsiButtonAdd.setText("Tambah");
+        ProvinsiButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProvinsiButtonAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout ProvinsiPanelLayout = new javax.swing.GroupLayout(ProvinsiPanel);
         ProvinsiPanel.setLayout(ProvinsiPanelLayout);
@@ -200,7 +237,6 @@ public class ApiJFrame extends javax.swing.JFrame {
                 .addGroup(ProvinsiEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ProvinsiEditPanelLayout.createSequentialGroup()
                         .addGroup(ProvinsiEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ProvinsiEditNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ProvinsiEditButtonBack)
                             .addComponent(ProvinsiEditButtonSave)
                             .addGroup(ProvinsiEditPanelLayout.createSequentialGroup()
@@ -209,9 +245,10 @@ public class ApiJFrame extends javax.swing.JFrame {
                                 .addComponent(ProvinsiEditId))
                             .addComponent(ProvinsiEditNameLabel)
                             .addComponent(ProvinsiEditPopulationsLabel))
-                        .addGap(307, 660, Short.MAX_VALUE))
+                        .addGap(497, 850, Short.MAX_VALUE))
                     .addGroup(ProvinsiEditPanelLayout.createSequentialGroup()
                         .addGroup(ProvinsiEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ProvinsiEditNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ProvinsiEditIdWeatherTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ProvinsiEditPopulationsTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ProvinsiEditIdWeatherLabel))
@@ -240,6 +277,113 @@ public class ApiJFrame extends javax.swing.JFrame {
                 .addComponent(ProvinsiEditButtonSave)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(ProvinsiEditButtonBack)
+                .addContainerGap())
+        );
+
+        ProvinsiAddPanel.setBackground(new java.awt.Color(102, 102, 102));
+
+        ProvinsiAddButtonSave.setBackground(new java.awt.Color(0, 153, 0));
+        ProvinsiAddButtonSave.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        ProvinsiAddButtonSave.setForeground(new java.awt.Color(255, 255, 255));
+        ProvinsiAddButtonSave.setText("Simpan");
+        ProvinsiAddButtonSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProvinsiAddButtonSaveActionPerformed(evt);
+            }
+        });
+
+        ProvinsiAddButtonBack.setBackground(new java.awt.Color(0, 51, 153));
+        ProvinsiAddButtonBack.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        ProvinsiAddButtonBack.setForeground(new java.awt.Color(255, 255, 255));
+        ProvinsiAddButtonBack.setText("Kembali");
+        ProvinsiAddButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProvinsiAddButtonBackActionPerformed(evt);
+            }
+        });
+
+        ProvinsiAddIdLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        ProvinsiAddIdLabel.setForeground(new java.awt.Color(255, 255, 255));
+        ProvinsiAddIdLabel.setLabelFor(ProvinsiAddIdTf);
+        ProvinsiAddIdLabel.setText("Id Provinsi :");
+
+        ProvinsiAddErrorLabelId.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        ProvinsiAddErrorLabelId.setForeground(new java.awt.Color(204, 0, 0));
+
+        ProvinsiAddNameLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        ProvinsiAddNameLabel.setForeground(new java.awt.Color(255, 255, 255));
+        ProvinsiAddNameLabel.setLabelFor(ProvinsiAddNametf);
+        ProvinsiAddNameLabel.setText("Nama Provinsi :");
+
+        ProvinsiAddErrorLabelName.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        ProvinsiAddErrorLabelName.setForeground(new java.awt.Color(204, 0, 0));
+
+        ProvinsiAddPopulationLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        ProvinsiAddPopulationLabel.setForeground(new java.awt.Color(255, 255, 255));
+        ProvinsiAddPopulationLabel.setLabelFor(ProvinsiAddPopulationTf);
+        ProvinsiAddPopulationLabel.setText("Populasi :");
+
+        ProvinsiAddIdWeatherLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        ProvinsiAddIdWeatherLabel.setForeground(new java.awt.Color(255, 255, 255));
+        ProvinsiAddIdWeatherLabel.setLabelFor(ProvinsiAddIdWeatherTf);
+        ProvinsiAddIdWeatherLabel.setText("Id Weather (OpenWeather Id) :");
+
+        javax.swing.GroupLayout ProvinsiAddPanelLayout = new javax.swing.GroupLayout(ProvinsiAddPanel);
+        ProvinsiAddPanel.setLayout(ProvinsiAddPanelLayout);
+        ProvinsiAddPanelLayout.setHorizontalGroup(
+            ProvinsiAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ProvinsiAddPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ProvinsiAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ProvinsiAddPanelLayout.createSequentialGroup()
+                        .addComponent(ProvinsiAddIdTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ProvinsiAddErrorLabelId, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE))
+                    .addGroup(ProvinsiAddPanelLayout.createSequentialGroup()
+                        .addGroup(ProvinsiAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ProvinsiAddNametf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ProvinsiAddNameLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ProvinsiAddErrorLabelName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(ProvinsiAddPanelLayout.createSequentialGroup()
+                        .addGroup(ProvinsiAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ProvinsiAddPopulationTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ProvinsiAddButtonBack)
+                            .addComponent(ProvinsiAddButtonSave)
+                            .addComponent(ProvinsiAddIdLabel)
+                            .addComponent(ProvinsiAddPopulationLabel)
+                            .addComponent(ProvinsiAddIdWeatherTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ProvinsiAddIdWeatherLabel))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        ProvinsiAddPanelLayout.setVerticalGroup(
+            ProvinsiAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ProvinsiAddPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ProvinsiAddIdLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ProvinsiAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ProvinsiAddIdTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ProvinsiAddErrorLabelId, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ProvinsiAddNameLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ProvinsiAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ProvinsiAddErrorLabelName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ProvinsiAddNametf, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ProvinsiAddPopulationLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ProvinsiAddPopulationTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addComponent(ProvinsiAddIdWeatherLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ProvinsiAddIdWeatherTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ProvinsiAddButtonSave)
+                .addGap(60, 60, 60)
+                .addComponent(ProvinsiAddButtonBack)
                 .addContainerGap())
         );
 
@@ -282,6 +426,20 @@ public class ApiJFrame extends javax.swing.JFrame {
     private void ProvinsiEditButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvinsiEditButtonBackActionPerformed
         MainPanel.setViewportView(ProvinsiPanel);
     }//GEN-LAST:event_ProvinsiEditButtonBackActionPerformed
+
+    private void ProvinsiButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvinsiButtonAddActionPerformed
+        MainPanel.setViewportView(ProvinsiAddPanel);
+    }//GEN-LAST:event_ProvinsiButtonAddActionPerformed
+
+    private void ProvinsiAddButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvinsiAddButtonSaveActionPerformed
+        String idprov = ProvinsiAddIdTf.getText(), name = ProvinsiAddNametf.getText(), idweather = ProvinsiAddIdWeatherTf.getText();
+        int pop = Integer.parseInt(ProvinsiAddPopulationTf.getText());
+        addProvinsi(idprov, name, pop, idweather);
+    }//GEN-LAST:event_ProvinsiAddButtonSaveActionPerformed
+
+    private void ProvinsiAddButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvinsiAddButtonBackActionPerformed
+        MainPanel.setViewportView(ProvinsiPanel);
+    }//GEN-LAST:event_ProvinsiAddButtonBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -348,14 +506,115 @@ public class ApiJFrame extends javax.swing.JFrame {
         ((DefaultTableCellRenderer)headerprov.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
         ((DefaultTableCellRenderer) headerprov.getDefaultRenderer()).setFont(new Font("Segoe UI", Font.BOLD, 12));
         headerprov.setBackground(Color.blue);
-        headerprov.setOpaque(false);
+        headerprov.setOpaque(true);
         
         
 
     }
+    
+    public void addProvinsi(String id, String name, int populations, String id_weather) {
+        HashMap<String, String> postDataParams = new HashMap<>();
+        postDataParams.put("id", id);
+        postDataParams.put("name", name);
+        postDataParams.put("population", String.valueOf(populations));
+        postDataParams.put("id_weather", id_weather);
+        JSONParser par = new JSONParser();
+        try {
+            
+            URL u = new URL("http://utsppk.000webhostapp.com/api/provinsi");
+            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            
+            OutputStream os = conn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            writer.write(getPostDataString(postDataParams));
+            writer.flush();
+            writer.close();
+            os.close();
+            int responseCode = conn.getResponseCode();
+            
+            if(responseCode == HttpURLConnection.HTTP_CREATED) {
+                String line,response = null;
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                while((line = br.readLine()) != null) {
+                    response+=line;
+                }
+                
+                System.out.println(response);
+            } else {
+                String line,response = null;
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                while((line = br.readLine()) != null) {
+                    response+=line;
+                }
+                response = response.substring(4);
+                
+                Document document = Jsoup.parse(response);
+                Element table = document.select("table").first();
+                String td = table.select("td").text();
+                String[] values = td.split("! ");
+                if(!values[1].contains("Unable") && !values[0].contains("Unable")) {
+                    clearErrorLabel();
+                    ProvinsiAddErrorLabelId.setText(values[0]+"!");
+                    ProvinsiAddErrorLabelName.setText(values[1]+"!");
+                } else if (!values[0].contains("Unable")) {
+                    clearErrorLabel();
+                    ProvinsiAddErrorLabelId.setText(values[0]+"!");
+                } else {
+                    clearErrorLabel();
+                    ProvinsiAddErrorLabelName.setText(values[1]+"!");
+                }
+                
+                
+            }
+            
+            
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException{
+        StringBuilder result = new StringBuilder();
+        boolean first = true;
+        for(Map.Entry<String, String> entry : params.entrySet()){
+            if (first)
+                first = false;
+            else
+                result.append("&");
+
+            result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+            result.append("=");
+            result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+        }
+
+        return result.toString();
+    }
+    
+    private void clearErrorLabel() {
+        ProvinsiAddErrorLabelId.setText("");
+        ProvinsiAddErrorLabelName.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane MainPanel;
+    private javax.swing.JButton ProvinsiAddButtonBack;
+    private javax.swing.JButton ProvinsiAddButtonSave;
+    private javax.swing.JLabel ProvinsiAddErrorLabelId;
+    private javax.swing.JLabel ProvinsiAddErrorLabelName;
+    private javax.swing.JLabel ProvinsiAddIdLabel;
+    private javax.swing.JTextField ProvinsiAddIdTf;
+    private javax.swing.JLabel ProvinsiAddIdWeatherLabel;
+    private javax.swing.JTextField ProvinsiAddIdWeatherTf;
+    private javax.swing.JLabel ProvinsiAddNameLabel;
+    private javax.swing.JTextField ProvinsiAddNametf;
+    private javax.swing.JPanel ProvinsiAddPanel;
+    private javax.swing.JLabel ProvinsiAddPopulationLabel;
+    private javax.swing.JTextField ProvinsiAddPopulationTf;
     private javax.swing.JButton ProvinsiButtonAdd;
     private javax.swing.JButton ProvinsiButtonBack;
     private javax.swing.JButton ProvinsiButtonDelete;
