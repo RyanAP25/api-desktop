@@ -35,7 +35,7 @@ public class DataHandler {
     public ArrayList<Provinsi> getAllProvinsi() {
         ArrayList<Provinsi> data = new ArrayList<>();
         try {
-            URL url = new URL("http://utsppk.000webhostapp.com/api/provinsi");
+            URL url = new URL("http://localhost/api-server/api/provinsi");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
@@ -76,7 +76,7 @@ public class DataHandler {
     public Provinsi getProvinsi(String id)   {
         Provinsi p = new Provinsi();
         try {
-            URL u = new URL("http://utsppk.000webhostapp.com/api/provinsi?idprov="+id);
+            URL u = new URL("http://localhost/api-server/api/provinsi?idprov="+id);
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
             JSONParser par = new JSONParser();
             conn.setRequestMethod("GET");

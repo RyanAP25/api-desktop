@@ -41,6 +41,7 @@ import org.jsoup.nodes.*;
 public class ApiJFrame extends javax.swing.JFrame {
 
     DataHandler dh = new DataHandler();
+
     /**
      * Creates new form ApiJFrame
      */
@@ -410,7 +411,7 @@ public class ApiJFrame extends javax.swing.JFrame {
 
     private void ProvinsiButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvinsiButtonEditActionPerformed
         int i = ProvinsiTable.getSelectedRow();
-        if(i < 0) {
+        if (i < 0) {
             JOptionPane.showMessageDialog(this, "Pilih data yang ingin di edit!", "Gagal!", JOptionPane.WARNING_MESSAGE);
         } else {
             String idprov = ProvinsiTable.getValueAt(i, 0).toString();
@@ -433,11 +434,16 @@ public class ApiJFrame extends javax.swing.JFrame {
 
     private void ProvinsiAddButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvinsiAddButtonSaveActionPerformed
         String idprov = ProvinsiAddIdTf.getText(), name = ProvinsiAddNametf.getText(), idweather = ProvinsiAddIdWeatherTf.getText();
-        int pop = Integer.parseInt(ProvinsiAddPopulationTf.getText());
+        int pop = 0;
+        if (!ProvinsiAddPopulationTf.getText().equals("")) {
+            pop = Integer.parseInt(ProvinsiAddPopulationTf.getText());
+        }
         addProvinsi(idprov, name, pop, idweather);
     }//GEN-LAST:event_ProvinsiAddButtonSaveActionPerformed
 
     private void ProvinsiAddButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvinsiAddButtonBackActionPerformed
+        loadData();
+        tableSettings();
         MainPanel.setViewportView(ProvinsiPanel);
     }//GEN-LAST:event_ProvinsiAddButtonBackActionPerformed
 
@@ -492,8 +498,7 @@ public class ApiJFrame extends javax.swing.JFrame {
 
     private void tableSettings() {
         TableCellRenderer tcr = new TextTableCenter();
-        
-        
+
         //Table Provinsi
         JTableHeader headerprov = ProvinsiTable.getTableHeader();
         ProvinsiTable.setShowGrid(true);
@@ -503,30 +508,28 @@ public class ApiJFrame extends javax.swing.JFrame {
         ProvinsiTable.getColumnModel().getColumn(3).setCellRenderer(tcr);
         ProvinsiTable.setFont(new Font("Roboto", Font.BOLD, 11));
         ProvinsiTable.setRowHeight(25);
-        ((DefaultTableCellRenderer)headerprov.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        ((DefaultTableCellRenderer) headerprov.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
         ((DefaultTableCellRenderer) headerprov.getDefaultRenderer()).setFont(new Font("Segoe UI", Font.BOLD, 12));
         headerprov.setBackground(Color.blue);
         headerprov.setOpaque(true);
-        
-        
 
     }
-    
+
     public void addProvinsi(String id, String name, int populations, String id_weather) {
         HashMap<String, String> postDataParams = new HashMap<>();
         postDataParams.put("id", id);
         postDataParams.put("name", name);
-        postDataParams.put("population", String.valueOf(populations));
+        postDataParams.put("populations", String.valueOf(populations));
         postDataParams.put("id_weather", id_weather);
         JSONParser par = new JSONParser();
         try {
-            
-            URL u = new URL("http://utsppk.000webhostapp.com/api/provinsi");
+
+            URL u = new URL("http://localhost/api-server/api/provinsi");
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
             conn.setRequestMethod("POST");
             conn.setDoInput(true);
             conn.setDoOutput(true);
-            
+
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
             writer.write(getPostDataString(postDataParams));
@@ -534,58 +537,68 @@ public class ApiJFrame extends javax.swing.JFrame {
             writer.close();
             os.close();
             int responseCode = conn.getResponseCode();
-            
-            if(responseCode == HttpURLConnection.HTTP_CREATED) {
-                String line,response = null;
+            if (responseCode == HttpURLConnection.HTTP_CREATED) {
+                String line, response = null;
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                while((line = br.readLine()) != null) {
-                    response+=line;
+                while ((line = br.readLine()) != null) {
+                    response += line;
                 }
-                
-                System.out.println(response);
-            } else {
-                String line,response = null;
+                clearError();
+                clearForm();
+                response = response.substring(4);
+                Document document = Jsoup.parse(response);
+                Element table = document.select("table").first();
+                String td = table.select("td").text();
+                String[] value = td.split("! ");
+                JOptionPane.showMessageDialog(this, value[1]+"!", value[0]+"!", JOptionPane.INFORMATION_MESSAGE);
+            }
+            if (responseCode == 400) {
+                String line, response = null;
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-                while((line = br.readLine()) != null) {
-                    response+=line;
+                while ((line = br.readLine()) != null) {
+                    response += line;
                 }
                 response = response.substring(4);
-                
                 Document document = Jsoup.parse(response);
                 Element table = document.select("table").first();
                 String td = table.select("td").text();
                 String[] values = td.split("! ");
-                if(!values[1].contains("Unable") && !values[0].contains("Unable")) {
-                    clearErrorLabel();
-                    ProvinsiAddErrorLabelId.setText(values[0]+"!");
-                    ProvinsiAddErrorLabelName.setText(values[1]+"!");
-                } else if (!values[0].contains("Unable")) {
-                    clearErrorLabel();
-                    ProvinsiAddErrorLabelId.setText(values[0]+"!");
+                if (values.length > 1) {
+                    if (!values[1].contains("Kode") && !values[0].contains("Nama")) {
+                        clearError();
+                        ProvinsiAddErrorLabelId.setText(values[0] + "!");
+                        ProvinsiAddErrorLabelName.setText(values[1] + "!");
+                    }
                 } else {
-                    clearErrorLabel();
-                    ProvinsiAddErrorLabelName.setText(values[1]+"!");
+                    if (values[0].contains("Kode")) {
+                        clearError();
+                        ProvinsiAddErrorLabelName.setText("");
+                        ProvinsiAddErrorLabelId.setText(values[0] + "!");
+                    } else {
+                        clearError();
+                        ProvinsiAddErrorLabelId.setText("");
+                        ProvinsiAddErrorLabelName.setText(values[0] + "!");
+                    }
                 }
-                
-                
+
             }
-            
-            
+
         } catch (MalformedURLException ex) {
             Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException{
+
+    private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
         StringBuilder result = new StringBuilder();
         boolean first = true;
-        for(Map.Entry<String, String> entry : params.entrySet()){
-            if (first)
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            if (first) {
                 first = false;
-            else
+            } else {
                 result.append("&");
+            }
 
             result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
             result.append("=");
@@ -594,8 +607,17 @@ public class ApiJFrame extends javax.swing.JFrame {
 
         return result.toString();
     }
+
+    private void clearForm() {
+        //Provinsi
+        //Add
+        ProvinsiAddIdTf.setText("");
+        ProvinsiAddNametf.setText("");
+        ProvinsiAddIdWeatherTf.setText("");
+        ProvinsiAddPopulationTf.setText("");
+    }
     
-    private void clearErrorLabel() {
+    private void clearError() {
         ProvinsiAddErrorLabelId.setText("");
         ProvinsiAddErrorLabelName.setText("");
     }
