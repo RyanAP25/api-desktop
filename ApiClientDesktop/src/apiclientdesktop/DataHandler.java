@@ -25,7 +25,8 @@ import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.*;
 /**
  *
  * @author Asus
@@ -112,5 +113,78 @@ public class DataHandler {
 //            
         }
         return p;
+    }
+   
+    public String addProvinsi(String id, String name, int populations, String id_weather) {
+        HashMap<String, String> postDataParams = new HashMap<>();
+        postDataParams.put("id", id);
+        postDataParams.put("name", name);
+        postDataParams.put("populations", String.valueOf(populations));
+        postDataParams.put("id_weather", id_weather);
+        JSONParser par = new JSONParser();
+        String mesg = null;
+        try {
+
+            URL u = new URL("http://localhost/api-server/api/provinsi");
+            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+
+            OutputStream os = conn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            writer.write(getPostDataString(postDataParams));
+            writer.flush();
+            writer.close();
+            os.close();
+            int responseCode = conn.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_CREATED) {
+                String line, response = null;
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                while ((line = br.readLine()) != null) {
+                    response += line;
+                }
+                response = response.substring(4);
+                Document document = Jsoup.parse(response);
+                Element table = document.select("table").first();
+                String td = table.select("td").text();
+                mesg = td;
+            }
+            if (responseCode == 400) {
+                String line, response = null;
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                while ((line = br.readLine()) != null) {
+                    response += line;
+                }
+                response = response.substring(4);
+                Document document = Jsoup.parse(response);
+                Element table = document.select("table").first();
+                String td = table.select("td").text();
+                mesg = td;
+            }
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return mesg;
+    }
+    
+    private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
+        StringBuilder result = new StringBuilder();
+        boolean first = true;
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            if (first) {
+                first = false;
+            } else {
+                result.append("&");
+            }
+
+            result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+            result.append("=");
+            result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+        }
+
+        return result.toString();
     }
 }
