@@ -223,6 +223,56 @@ public class DataHandler {
         return mesg;
     }
     
+    public String deleteProvinsi(String id) {
+        HashMap<String, String> postDataParams = new HashMap<>();
+        postDataParams.put("id", id);
+        String mesg = null;
+        try {
+            URL u = new URL("http://localhost/api-server/api/provinsi");
+            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+            conn.setRequestMethod("DELETE");
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            
+             OutputStream os = conn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            writer.write(getPostDataString(postDataParams));
+            writer.flush();
+            writer.close();
+            os.close();
+            int responseCode = conn.getResponseCode();
+            if(responseCode == 200){
+                String line, response = null;
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                while((line = br.readLine()) != null) {
+                    response+=line;
+                }
+                response = response.substring(4);
+                Document document = Jsoup.parse(response);
+                Element table = document.select("table").first();
+                String td = table.select("td").text();
+                mesg = td;
+            }
+            if(responseCode == 404){
+                String line, response = null;
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                while((line = br.readLine()) != null) {
+                    response+=line;
+                }
+                response = response.substring(4);
+                Document document = Jsoup.parse(response);
+                Element table = document.select("table").first();
+                String td = table.select("td").text();
+                mesg = td;
+            }
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return mesg;
+    }
+    
     private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
         StringBuilder result = new StringBuilder();
         boolean first = true;

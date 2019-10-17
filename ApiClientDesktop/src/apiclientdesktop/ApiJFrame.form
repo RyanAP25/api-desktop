@@ -45,7 +45,7 @@
                       <Component id="ProvinsiButtonDelete" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="ProvinsiButtonAdd" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="55" max="32767" attributes="0"/>
+                  <EmptySpace pref="53" max="32767" attributes="0"/>
                   <Component id="ProvinsiButtonBack" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -161,6 +161,9 @@
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ProvinsiButtonDeleteActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="ProvinsiButtonAdd">
           <Properties>
@@ -255,7 +258,7 @@
                   <Component id="ProvinsiEditIdWeatherTf" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
                   <Component id="ProvinsiEditButtonSave" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="51" max="32767" attributes="0"/>
+                  <EmptySpace pref="49" max="32767" attributes="0"/>
                   <Component id="ProvinsiEditButtonBack" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -385,7 +388,7 @@
                       <Group type="102" attributes="0">
                           <Component id="ProvinsiAddIdTf" min="-2" pref="280" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="ProvinsiAddErrorLabelId" pref="546" max="32767" attributes="0"/>
+                          <Component id="ProvinsiAddErrorLabelId" pref="640" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -566,6 +569,21 @@
         <Component class="javax.swing.JTextField" name="ProvinsiAddIdWeatherTf">
         </Component>
       </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="DashboardPanel">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="950" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="543" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
     </Container>
   </NonVisualComponents>
   <Properties>

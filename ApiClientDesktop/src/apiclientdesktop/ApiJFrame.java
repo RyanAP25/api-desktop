@@ -93,6 +93,7 @@ public class ApiJFrame extends javax.swing.JFrame {
         ProvinsiAddPopulationLabel = new javax.swing.JLabel();
         ProvinsiAddIdWeatherLabel = new javax.swing.JLabel();
         ProvinsiAddIdWeatherTf = new javax.swing.JTextField();
+        DashboardPanel = new javax.swing.JPanel();
         MainPanel = new javax.swing.JScrollPane();
 
         ProvinsiPanel.setBackground(new java.awt.Color(102, 102, 102));
@@ -148,6 +149,11 @@ public class ApiJFrame extends javax.swing.JFrame {
         ProvinsiButtonDelete.setForeground(new java.awt.Color(255, 255, 255));
         ProvinsiButtonDelete.setText("Hapus");
         ProvinsiButtonDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ProvinsiButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProvinsiButtonDeleteActionPerformed(evt);
+            }
+        });
 
         ProvinsiButtonAdd.setBackground(new java.awt.Color(0, 153, 0));
         ProvinsiButtonAdd.setFont(new java.awt.Font("Raleway", 1, 11)); // NOI18N
@@ -189,7 +195,7 @@ public class ApiJFrame extends javax.swing.JFrame {
                     .addComponent(ProvinsiButtonEdit)
                     .addComponent(ProvinsiButtonDelete)
                     .addComponent(ProvinsiButtonAdd))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(ProvinsiButtonBack)
                 .addContainerGap())
         );
@@ -293,7 +299,7 @@ public class ApiJFrame extends javax.swing.JFrame {
                 .addComponent(ProvinsiEditIdWeatherTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(98, 98, 98)
                 .addComponent(ProvinsiEditButtonSave)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(ProvinsiEditButtonBack)
                 .addContainerGap())
         );
@@ -356,7 +362,7 @@ public class ApiJFrame extends javax.swing.JFrame {
                     .addGroup(ProvinsiAddPanelLayout.createSequentialGroup()
                         .addComponent(ProvinsiAddIdTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ProvinsiAddErrorLabelId, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE))
+                        .addComponent(ProvinsiAddErrorLabelId, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE))
                     .addGroup(ProvinsiAddPanelLayout.createSequentialGroup()
                         .addGroup(ProvinsiAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ProvinsiAddNametf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -403,6 +409,17 @@ public class ApiJFrame extends javax.swing.JFrame {
                 .addGap(60, 60, 60)
                 .addComponent(ProvinsiAddButtonBack)
                 .addContainerGap())
+        );
+
+        javax.swing.GroupLayout DashboardPanelLayout = new javax.swing.GroupLayout(DashboardPanel);
+        DashboardPanel.setLayout(DashboardPanelLayout);
+        DashboardPanelLayout.setHorizontalGroup(
+            DashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 950, Short.MAX_VALUE)
+        );
+        DashboardPanelLayout.setVerticalGroup(
+            DashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 543, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -461,7 +478,7 @@ public class ApiJFrame extends javax.swing.JFrame {
         String mesg = dh.addProvinsi(idprov, name, pop, idweather);
         if (mesg.contains("Sukses!")) {
             String[] values = mesg.split("! ");
-            JOptionPane.showMessageDialog(this, values[1]+"!", values[0]+"!", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, values[1] + "!", values[0] + "!", JOptionPane.INFORMATION_MESSAGE);
             clearError();
             clearForm();
         } else {
@@ -498,13 +515,13 @@ public class ApiJFrame extends javax.swing.JFrame {
     private void ProvinsiEditButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvinsiEditButtonSaveActionPerformed
         String id = ProvinsiEditId.getText(), name = ProvinsiEditNameTf.getText(), id_weath = ProvinsiEditIdWeatherTf.getText();
         int pop = 0;
-        if(!ProvinsiEditPopulationsTf.getText().equals("")) {
+        if (!ProvinsiEditPopulationsTf.getText().equals("")) {
             pop = Integer.parseInt(ProvinsiEditPopulationsTf.getText());
         }
         String mesg = dh.updateProvinsi(id, name, pop, id_weath);
-         if (mesg.contains("Sukses!")) {
+        if (mesg.contains("Sukses!")) {
             String[] values = mesg.split("! ");
-            JOptionPane.showMessageDialog(this, values[1]+"!", values[0]+"!", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, values[1] + "!", values[0] + "!", JOptionPane.INFORMATION_MESSAGE);
             clearError();
             clearForm();
         } else {
@@ -525,6 +542,25 @@ public class ApiJFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_ProvinsiEditButtonSaveActionPerformed
+
+    private void ProvinsiButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvinsiButtonDeleteActionPerformed
+        int i = ProvinsiTable.getSelectedRow();
+        if (i < 0) {
+            JOptionPane.showMessageDialog(this, "Pilih data yang ingin dihapus!", "Gagal!", JOptionPane.WARNING_MESSAGE);
+        } else {
+            String idprov = ProvinsiTable.getValueAt(i, 0).toString();
+            String mesg = dh.deleteProvinsi(idprov);
+            if (mesg.contains("Sukses!")) {
+                String[] values = mesg.split("! ");
+                JOptionPane.showMessageDialog(this, values[1] + "!", values[0] + "!", JOptionPane.INFORMATION_MESSAGE);
+                clearData();
+                loadData();
+            } else {
+                String[] values = mesg.split("! ");
+                JOptionPane.showMessageDialog(this, values[0]+"!");
+            }
+        }
+    }//GEN-LAST:event_ProvinsiButtonDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -561,10 +597,10 @@ public class ApiJFrame extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void clearData() {
         DefaultTableModel provdm = (DefaultTableModel) ProvinsiTable.getModel();
-        while(provdm.getRowCount() > 0 ) {
+        while (provdm.getRowCount() > 0) {
             provdm.removeRow(0);
         }
     }
@@ -622,6 +658,7 @@ public class ApiJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel DashboardPanel;
     private javax.swing.JScrollPane MainPanel;
     private javax.swing.JButton ProvinsiAddButtonBack;
     private javax.swing.JButton ProvinsiAddButtonSave;
