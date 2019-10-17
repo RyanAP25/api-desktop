@@ -22,6 +22,7 @@ import java.net.URLEncoder;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
@@ -47,9 +48,16 @@ public class ApiJFrame extends javax.swing.JFrame {
      */
     public ApiJFrame() {
         initComponents();
-        loadData();
+        loadData("11");
         tableSettings();
-        MainPanel.setViewportView(ProvinsiPanel);
+        MainPanel.setViewportView(DashboardPanel);
+        List<Provinsi> prov = dh.getAllProvinsi();
+        String[] namProv = new String[prov.size()];
+        for (int i = 0; i < namProv.length; i++) {
+            namProv[i] = prov.get(i).getId() + "-" + prov.get(i).getName();
+        }
+        KabupatenProvinsiComboBox.setModel(new DefaultComboBoxModel(namProv));
+
     }
 
     /**
@@ -61,6 +69,13 @@ public class ApiJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        DashboardPanel = new javax.swing.JPanel();
+        DashboardButtonProvinsi = new javax.swing.JButton();
+        DashboardButtonKabupaten = new javax.swing.JButton();
+        DashboardButtonKecamatan = new javax.swing.JButton();
+        DashboardButtonKelurahan = new javax.swing.JButton();
+        DashboardTitlePanel = new javax.swing.JPanel();
+        DashboardTitleLabel = new javax.swing.JLabel();
         ProvinsiPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ProvinsiTable = new javax.swing.JTable();
@@ -93,8 +108,120 @@ public class ApiJFrame extends javax.swing.JFrame {
         ProvinsiAddPopulationLabel = new javax.swing.JLabel();
         ProvinsiAddIdWeatherLabel = new javax.swing.JLabel();
         ProvinsiAddIdWeatherTf = new javax.swing.JTextField();
-        DashboardPanel = new javax.swing.JPanel();
+        KabupateniPanel = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        KabupatenTable = new javax.swing.JTable();
+        KabupatenButtonBack = new javax.swing.JButton();
+        KabupatenButtonEdit = new javax.swing.JButton();
+        KabupatenButtonDelete = new javax.swing.JButton();
+        KabupatenButtonAdd = new javax.swing.JButton();
+        KabupatenProvinsiComboBox = new javax.swing.JComboBox<>();
+        KabupatenEditPanel = new javax.swing.JPanel();
+        KabupatenEditButtonBack = new javax.swing.JButton();
+        KabupatenEditButtonSave = new javax.swing.JButton();
+        KabupatenEditNameTf = new javax.swing.JTextField();
+        KabupatenEditIdLabel = new javax.swing.JLabel();
+        KabupatenEditId = new javax.swing.JLabel();
+        KabupatenEditNameLabel = new javax.swing.JLabel();
+        KabupatenEditPopulationsLabel = new javax.swing.JLabel();
+        KabupatenEditPopulationsTf = new javax.swing.JTextField();
+        KabupatenEditIdWeatherLabel = new javax.swing.JLabel();
+        KabupatenEditIdWeatherTf = new javax.swing.JTextField();
+        KabupatenEditErrorName = new javax.swing.JLabel();
+        KabupatenEditIdTf = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        KabupatenEditIdProvTf = new javax.swing.JTextField();
         MainPanel = new javax.swing.JScrollPane();
+
+        DashboardPanel.setBackground(new java.awt.Color(102, 102, 102));
+
+        DashboardButtonProvinsi.setBackground(new java.awt.Color(0, 204, 0));
+        DashboardButtonProvinsi.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        DashboardButtonProvinsi.setForeground(new java.awt.Color(255, 255, 255));
+        DashboardButtonProvinsi.setText("Data Provinsi");
+        DashboardButtonProvinsi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        DashboardButtonProvinsi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DashboardButtonProvinsiActionPerformed(evt);
+            }
+        });
+
+        DashboardButtonKabupaten.setBackground(new java.awt.Color(0, 0, 204));
+        DashboardButtonKabupaten.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        DashboardButtonKabupaten.setForeground(new java.awt.Color(255, 255, 255));
+        DashboardButtonKabupaten.setText("Data Kabupaten");
+        DashboardButtonKabupaten.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        DashboardButtonKabupaten.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DashboardButtonKabupatenActionPerformed(evt);
+            }
+        });
+
+        DashboardButtonKecamatan.setBackground(new java.awt.Color(255, 153, 0));
+        DashboardButtonKecamatan.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        DashboardButtonKecamatan.setForeground(new java.awt.Color(255, 255, 255));
+        DashboardButtonKecamatan.setText("Data Kecamatan");
+        DashboardButtonKecamatan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        DashboardButtonKelurahan.setBackground(new java.awt.Color(204, 0, 0));
+        DashboardButtonKelurahan.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        DashboardButtonKelurahan.setForeground(new java.awt.Color(255, 255, 255));
+        DashboardButtonKelurahan.setText("Data Kelurahan");
+        DashboardButtonKelurahan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        DashboardTitlePanel.setBackground(new java.awt.Color(102, 102, 102));
+
+        DashboardTitleLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        DashboardTitleLabel.setForeground(new java.awt.Color(255, 255, 255));
+        DashboardTitleLabel.setText("EDITOR FOR WEB SERVICE DATA INDONESIA");
+
+        javax.swing.GroupLayout DashboardTitlePanelLayout = new javax.swing.GroupLayout(DashboardTitlePanel);
+        DashboardTitlePanel.setLayout(DashboardTitlePanelLayout);
+        DashboardTitlePanelLayout.setHorizontalGroup(
+            DashboardTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DashboardTitlePanelLayout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addComponent(DashboardTitleLabel)
+                .addContainerGap(96, Short.MAX_VALUE))
+        );
+        DashboardTitlePanelLayout.setVerticalGroup(
+            DashboardTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DashboardTitlePanelLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(DashboardTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(152, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout DashboardPanelLayout = new javax.swing.GroupLayout(DashboardPanel);
+        DashboardPanel.setLayout(DashboardPanelLayout);
+        DashboardPanelLayout.setHorizontalGroup(
+            DashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DashboardPanelLayout.createSequentialGroup()
+                .addGap(204, 204, 204)
+                .addGroup(DashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(DashboardButtonKecamatan, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                    .addComponent(DashboardButtonProvinsi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(DashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(DashboardButtonKabupaten, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                    .addComponent(DashboardButtonKelurahan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(DashboardTitlePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        DashboardPanelLayout.setVerticalGroup(
+            DashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DashboardPanelLayout.createSequentialGroup()
+                .addComponent(DashboardTitlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(DashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(DashboardButtonKabupaten, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(DashboardButtonProvinsi, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(DashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(DashboardButtonKecamatan, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                    .addComponent(DashboardButtonKelurahan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(156, Short.MAX_VALUE))
+        );
 
         ProvinsiPanel.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -132,6 +259,11 @@ public class ApiJFrame extends javax.swing.JFrame {
         ProvinsiButtonBack.setFont(new java.awt.Font("Raleway", 1, 11)); // NOI18N
         ProvinsiButtonBack.setForeground(new java.awt.Color(255, 255, 255));
         ProvinsiButtonBack.setText("Kembali");
+        ProvinsiButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProvinsiButtonBackActionPerformed(evt);
+            }
+        });
 
         ProvinsiButtonEdit.setBackground(new java.awt.Color(255, 153, 51));
         ProvinsiButtonEdit.setFont(new java.awt.Font("Raleway", 1, 11)); // NOI18N
@@ -411,15 +543,247 @@ public class ApiJFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout DashboardPanelLayout = new javax.swing.GroupLayout(DashboardPanel);
-        DashboardPanel.setLayout(DashboardPanelLayout);
-        DashboardPanelLayout.setHorizontalGroup(
-            DashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 950, Short.MAX_VALUE)
+        KabupateniPanel.setBackground(new java.awt.Color(102, 102, 102));
+
+        KabupatenTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Name", "Populations", "Id_Weather", "Province_Id"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        KabupatenTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        KabupatenTable.setFocusable(false);
+        KabupatenTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        KabupatenTable.setSelectionBackground(new java.awt.Color(32, 136, 203));
+        KabupatenTable.getTableHeader().setResizingAllowed(false);
+        KabupatenTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(KabupatenTable);
+        if (KabupatenTable.getColumnModel().getColumnCount() > 0) {
+            KabupatenTable.getColumnModel().getColumn(0).setResizable(false);
+            KabupatenTable.getColumnModel().getColumn(1).setResizable(false);
+            KabupatenTable.getColumnModel().getColumn(2).setResizable(false);
+            KabupatenTable.getColumnModel().getColumn(3).setResizable(false);
+            KabupatenTable.getColumnModel().getColumn(4).setResizable(false);
+        }
+
+        KabupatenButtonBack.setBackground(new java.awt.Color(153, 153, 0));
+        KabupatenButtonBack.setFont(new java.awt.Font("Raleway", 1, 11)); // NOI18N
+        KabupatenButtonBack.setForeground(new java.awt.Color(255, 255, 255));
+        KabupatenButtonBack.setText("Kembali");
+        KabupatenButtonBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        KabupatenButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KabupatenButtonBackActionPerformed(evt);
+            }
+        });
+
+        KabupatenButtonEdit.setBackground(new java.awt.Color(255, 153, 51));
+        KabupatenButtonEdit.setFont(new java.awt.Font("Raleway", 1, 11)); // NOI18N
+        KabupatenButtonEdit.setForeground(new java.awt.Color(255, 255, 255));
+        KabupatenButtonEdit.setText("Edit");
+        KabupatenButtonEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        KabupatenButtonEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KabupatenButtonEditActionPerformed(evt);
+            }
+        });
+
+        KabupatenButtonDelete.setBackground(new java.awt.Color(204, 0, 0));
+        KabupatenButtonDelete.setFont(new java.awt.Font("Raleway", 1, 11)); // NOI18N
+        KabupatenButtonDelete.setForeground(new java.awt.Color(255, 255, 255));
+        KabupatenButtonDelete.setText("Hapus");
+        KabupatenButtonDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        KabupatenButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KabupatenButtonDeleteActionPerformed(evt);
+            }
+        });
+
+        KabupatenButtonAdd.setBackground(new java.awt.Color(0, 153, 0));
+        KabupatenButtonAdd.setFont(new java.awt.Font("Raleway", 1, 11)); // NOI18N
+        KabupatenButtonAdd.setForeground(new java.awt.Color(255, 255, 255));
+        KabupatenButtonAdd.setText("Tambah");
+        KabupatenButtonAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        KabupatenButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KabupatenButtonAddActionPerformed(evt);
+            }
+        });
+
+        KabupatenProvinsiComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                KabupatenProvinsiComboBoxItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout KabupateniPanelLayout = new javax.swing.GroupLayout(KabupateniPanel);
+        KabupateniPanel.setLayout(KabupateniPanelLayout);
+        KabupateniPanelLayout.setHorizontalGroup(
+            KabupateniPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(KabupateniPanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(KabupateniPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(KabupateniPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, KabupateniPanelLayout.createSequentialGroup()
+                        .addComponent(KabupatenButtonAdd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(KabupatenButtonDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(KabupatenButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(KabupateniPanelLayout.createSequentialGroup()
+                        .addGroup(KabupateniPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(KabupatenButtonBack)
+                            .addComponent(KabupatenProvinsiComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
-        DashboardPanelLayout.setVerticalGroup(
-            DashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 543, Short.MAX_VALUE)
+        KabupateniPanelLayout.setVerticalGroup(
+            KabupateniPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(KabupateniPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(KabupatenProvinsiComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(KabupateniPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(KabupatenButtonEdit)
+                    .addComponent(KabupatenButtonDelete)
+                    .addComponent(KabupatenButtonAdd))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(KabupatenButtonBack)
+                .addContainerGap())
+        );
+
+        KabupatenEditPanel.setBackground(new java.awt.Color(102, 102, 102));
+
+        KabupatenEditButtonBack.setBackground(new java.awt.Color(153, 153, 0));
+        KabupatenEditButtonBack.setFont(new java.awt.Font("Raleway", 1, 11)); // NOI18N
+        KabupatenEditButtonBack.setForeground(new java.awt.Color(255, 255, 255));
+        KabupatenEditButtonBack.setText("Kembali");
+        KabupatenEditButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KabupatenEditButtonBackActionPerformed(evt);
+            }
+        });
+
+        KabupatenEditButtonSave.setBackground(new java.awt.Color(0, 153, 0));
+        KabupatenEditButtonSave.setFont(new java.awt.Font("Raleway", 1, 11)); // NOI18N
+        KabupatenEditButtonSave.setForeground(new java.awt.Color(255, 255, 255));
+        KabupatenEditButtonSave.setText("Simpan");
+        KabupatenEditButtonSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KabupatenEditButtonSaveActionPerformed(evt);
+            }
+        });
+
+        KabupatenEditIdLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        KabupatenEditIdLabel.setForeground(new java.awt.Color(255, 255, 255));
+        KabupatenEditIdLabel.setText("Id Kabupaten :");
+
+        KabupatenEditId.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        KabupatenEditId.setForeground(new java.awt.Color(255, 255, 255));
+
+        KabupatenEditNameLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        KabupatenEditNameLabel.setForeground(new java.awt.Color(255, 255, 255));
+        KabupatenEditNameLabel.setText("Nama Kabupaten :");
+
+        KabupatenEditPopulationsLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        KabupatenEditPopulationsLabel.setForeground(new java.awt.Color(255, 255, 255));
+        KabupatenEditPopulationsLabel.setText("Populations        :");
+
+        KabupatenEditIdWeatherLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        KabupatenEditIdWeatherLabel.setForeground(new java.awt.Color(255, 255, 255));
+        KabupatenEditIdWeatherLabel.setText("Id Weather (OpenWeather Id) :");
+
+        KabupatenEditErrorName.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        KabupatenEditErrorName.setForeground(new java.awt.Color(255, 0, 0));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Id Provinsi :");
+
+        javax.swing.GroupLayout KabupatenEditPanelLayout = new javax.swing.GroupLayout(KabupatenEditPanel);
+        KabupatenEditPanel.setLayout(KabupatenEditPanelLayout);
+        KabupatenEditPanelLayout.setHorizontalGroup(
+            KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(KabupatenEditPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(KabupatenEditPanelLayout.createSequentialGroup()
+                        .addGroup(KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(KabupatenEditButtonBack)
+                            .addComponent(KabupatenEditButtonSave)
+                            .addGroup(KabupatenEditPanelLayout.createSequentialGroup()
+                                .addComponent(KabupatenEditIdLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(KabupatenEditId)))
+                        .addGap(512, 858, Short.MAX_VALUE))
+                    .addGroup(KabupatenEditPanelLayout.createSequentialGroup()
+                        .addGroup(KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(KabupatenEditIdTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(KabupatenEditErrorName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(10, 10, 10))
+                    .addGroup(KabupatenEditPanelLayout.createSequentialGroup()
+                        .addGroup(KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(KabupatenEditIdProvTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(KabupatenEditNameLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(KabupatenEditNameTf)
+                                .addComponent(KabupatenEditIdWeatherTf)
+                                .addComponent(KabupatenEditIdWeatherLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(KabupatenEditPopulationsLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(KabupatenEditPopulationsTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        KabupatenEditPanelLayout.setVerticalGroup(
+            KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(KabupatenEditPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(KabupatenEditIdLabel)
+                    .addComponent(KabupatenEditId))
+                .addGroup(KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(KabupatenEditPanelLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(KabupatenEditErrorName, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(KabupatenEditPanelLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(KabupatenEditIdTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(KabupatenEditIdProvTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(KabupatenEditNameLabel)
+                .addGap(1, 1, 1)
+                .addComponent(KabupatenEditNameTf, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(KabupatenEditPopulationsLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(KabupatenEditPopulationsTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(KabupatenEditIdWeatherLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(KabupatenEditIdWeatherTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(KabupatenEditButtonSave)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(KabupatenEditButtonBack)
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -460,7 +824,7 @@ public class ApiJFrame extends javax.swing.JFrame {
 
     private void ProvinsiEditButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvinsiEditButtonBackActionPerformed
         clearData();
-        loadData();
+        loadData("11");
         tableSettings();
         MainPanel.setViewportView(ProvinsiPanel);
     }//GEN-LAST:event_ProvinsiEditButtonBackActionPerformed
@@ -505,7 +869,7 @@ public class ApiJFrame extends javax.swing.JFrame {
 
     private void ProvinsiAddButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvinsiAddButtonBackActionPerformed
         clearData();
-        loadData();
+        loadData("11");
         tableSettings();
         clearError();
         clearForm();
@@ -548,19 +912,87 @@ public class ApiJFrame extends javax.swing.JFrame {
         if (i < 0) {
             JOptionPane.showMessageDialog(this, "Pilih data yang ingin dihapus!", "Gagal!", JOptionPane.WARNING_MESSAGE);
         } else {
-            String idprov = ProvinsiTable.getValueAt(i, 0).toString();
-            String mesg = dh.deleteProvinsi(idprov);
-            if (mesg.contains("Sukses!")) {
-                String[] values = mesg.split("! ");
-                JOptionPane.showMessageDialog(this, values[1] + "!", values[0] + "!", JOptionPane.INFORMATION_MESSAGE);
-                clearData();
-                loadData();
-            } else {
-                String[] values = mesg.split("! ");
-                JOptionPane.showMessageDialog(this, values[0]+"!");
+            int ans = JOptionPane.showConfirmDialog(this, "Apakah anda ingin menghapus data yang dipilih?", "Hapus", JOptionPane.YES_NO_CANCEL_OPTION);
+            if (ans == JOptionPane.YES_OPTION) {
+                String idprov = ProvinsiTable.getValueAt(i, 0).toString();
+                String mesg = dh.deleteProvinsi(idprov);
+                if (mesg.contains("Sukses!")) {
+                    String[] values = mesg.split("! ");
+                    JOptionPane.showMessageDialog(this, values[1] + "!", values[0] + "!", JOptionPane.INFORMATION_MESSAGE);
+                    clearData();
+                    loadData("11");
+                } else {
+                    String[] values = mesg.split("! ");
+                    JOptionPane.showMessageDialog(this, values[0] + "!");
+                }
             }
         }
     }//GEN-LAST:event_ProvinsiButtonDeleteActionPerformed
+
+    private void DashboardButtonProvinsiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButtonProvinsiActionPerformed
+        MainPanel.setViewportView(ProvinsiPanel);
+    }//GEN-LAST:event_DashboardButtonProvinsiActionPerformed
+
+    private void ProvinsiButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvinsiButtonBackActionPerformed
+        List<Provinsi> prov = dh.getAllProvinsi();
+        String[] namProv = new String[prov.size()];
+        for (int i = 0; i < namProv.length; i++) {
+            namProv[i] = prov.get(i).getId() + "-" + prov.get(i).getName();
+        }
+        KabupatenProvinsiComboBox.setModel(new DefaultComboBoxModel(namProv));
+        MainPanel.setViewportView(DashboardPanel);
+    }//GEN-LAST:event_ProvinsiButtonBackActionPerformed
+
+    private void KabupatenButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KabupatenButtonBackActionPerformed
+        clearForm();
+        clearError();
+        MainPanel.setViewportView(DashboardPanel);
+    }//GEN-LAST:event_KabupatenButtonBackActionPerformed
+
+    private void KabupatenButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KabupatenButtonEditActionPerformed
+        int i = KabupatenTable.getSelectedRow();
+        if (i < 0) {
+            JOptionPane.showMessageDialog(this, "Pilih Kabupaten yang ingin diedit!", "Gagal!", JOptionPane.WARNING_MESSAGE);
+        } else {
+            String idkab = KabupatenTable.getValueAt(i, 0).toString();
+            Kabupaten kab = dh.getKabupaten(idkab);
+            KabupatenEditIdTf.setText(kab.getId());
+            KabupatenEditIdProvTf.setText(kab.getProvince_id());
+            KabupatenEditNameTf.setText(kab.getName());
+            KabupatenEditPopulationsTf.setText(String.valueOf(kab.getPopulations()));
+            KabupatenEditIdWeatherTf.setText(kab.getId_weather());
+            MainPanel.setViewportView(KabupatenEditPanel);
+        }
+    }//GEN-LAST:event_KabupatenButtonEditActionPerformed
+
+    private void KabupatenButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KabupatenButtonDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_KabupatenButtonDeleteActionPerformed
+
+    private void KabupatenButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KabupatenButtonAddActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_KabupatenButtonAddActionPerformed
+
+    private void DashboardButtonKabupatenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButtonKabupatenActionPerformed
+        MainPanel.setViewportView(KabupateniPanel);
+    }//GEN-LAST:event_DashboardButtonKabupatenActionPerformed
+
+    private void KabupatenProvinsiComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_KabupatenProvinsiComboBoxItemStateChanged
+        String prov = KabupatenProvinsiComboBox.getSelectedItem().toString();
+        String[] kode = prov.split("-");
+        clearData();
+        loadData(kode[0]);
+    }//GEN-LAST:event_KabupatenProvinsiComboBoxItemStateChanged
+
+    private void KabupatenEditButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KabupatenEditButtonBackActionPerformed
+        clearForm();
+        clearError();
+        MainPanel.setViewportView(KabupateniPanel);
+    }//GEN-LAST:event_KabupatenEditButtonBackActionPerformed
+
+    private void KabupatenEditButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KabupatenEditButtonSaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_KabupatenEditButtonSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -600,12 +1032,17 @@ public class ApiJFrame extends javax.swing.JFrame {
 
     private void clearData() {
         DefaultTableModel provdm = (DefaultTableModel) ProvinsiTable.getModel();
+        DefaultTableModel kabdm = (DefaultTableModel) KabupatenTable.getModel();
         while (provdm.getRowCount() > 0) {
             provdm.removeRow(0);
         }
+
+        while (kabdm.getRowCount() > 0) {
+            kabdm.removeRow(0);
+        }
     }
 
-    private void loadData() {
+    private void loadData(String idkab) {
         DefaultTableModel provdm = (DefaultTableModel) ProvinsiTable.getModel();
         List<Provinsi> provinsi = dh.getAllProvinsi();
         for (int i = 0; i < provinsi.size(); i++) {
@@ -614,6 +1051,17 @@ public class ApiJFrame extends javax.swing.JFrame {
                 provinsi.get(i).getName(),
                 provinsi.get(i).getPopulations(),
                 provinsi.get(i).getId_weather()
+            });
+        }
+        DefaultTableModel kabdm = (DefaultTableModel) KabupatenTable.getModel();
+        List<Kabupaten> kabupaten = dh.getAllKabupaten(idkab);
+        for (int i = 0; i < kabupaten.size(); i++) {
+            kabdm.addRow(new Object[]{
+                kabupaten.get(i).getId(),
+                kabupaten.get(i).getName(),
+                kabupaten.get(i).getPopulations(),
+                kabupaten.get(i).getId_weather(),
+                kabupaten.get(i).getProvince_id()
             });
         }
     }
@@ -635,6 +1083,18 @@ public class ApiJFrame extends javax.swing.JFrame {
         headerprov.setBackground(Color.blue);
         headerprov.setOpaque(true);
 
+        //Table Kabupaten
+        JTableHeader headerkab = KabupatenTable.getTableHeader();
+        KabupatenTable.setShowGrid(true);
+        for (int i = 0; i < KabupatenTable.getColumnCount(); i++) {
+            KabupatenTable.getColumnModel().getColumn(i).setCellRenderer(tcr);
+        }
+        KabupatenTable.setFont(new Font("Robot", Font.BOLD, 11));
+        KabupatenTable.setRowHeight(25);
+        ((DefaultTableCellRenderer) headerkab.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        ((DefaultTableCellRenderer) headerkab.getDefaultRenderer()).setFont(new Font("Segoe UI", Font.BOLD, 12));
+        headerkab.setBackground(Color.blue);
+
     }
 
     private void clearForm() {
@@ -649,6 +1109,14 @@ public class ApiJFrame extends javax.swing.JFrame {
         ProvinsiEditNameTf.setText("");
         ProvinsiEditPopulationsTf.setText("");
         ProvinsiEditIdWeatherTf.setText("");
+
+        //Kabupaten
+        //Edit
+        KabupatenEditIdProvTf.setText("");
+        KabupatenEditIdTf.setText("");
+        KabupatenEditNameTf.setText("");
+        KabupatenEditPopulationsTf.setText("");
+        KabupatenEditIdWeatherTf.setText("");
     }
 
     private void clearError() {
@@ -658,7 +1126,34 @@ public class ApiJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton DashboardButtonKabupaten;
+    private javax.swing.JButton DashboardButtonKecamatan;
+    private javax.swing.JButton DashboardButtonKelurahan;
+    private javax.swing.JButton DashboardButtonProvinsi;
     private javax.swing.JPanel DashboardPanel;
+    private javax.swing.JLabel DashboardTitleLabel;
+    private javax.swing.JPanel DashboardTitlePanel;
+    private javax.swing.JButton KabupatenButtonAdd;
+    private javax.swing.JButton KabupatenButtonBack;
+    private javax.swing.JButton KabupatenButtonDelete;
+    private javax.swing.JButton KabupatenButtonEdit;
+    private javax.swing.JButton KabupatenEditButtonBack;
+    private javax.swing.JButton KabupatenEditButtonSave;
+    private javax.swing.JLabel KabupatenEditErrorName;
+    private javax.swing.JLabel KabupatenEditId;
+    private javax.swing.JLabel KabupatenEditIdLabel;
+    private javax.swing.JTextField KabupatenEditIdProvTf;
+    private javax.swing.JTextField KabupatenEditIdTf;
+    private javax.swing.JLabel KabupatenEditIdWeatherLabel;
+    private javax.swing.JTextField KabupatenEditIdWeatherTf;
+    private javax.swing.JLabel KabupatenEditNameLabel;
+    private javax.swing.JTextField KabupatenEditNameTf;
+    private javax.swing.JPanel KabupatenEditPanel;
+    private javax.swing.JLabel KabupatenEditPopulationsLabel;
+    private javax.swing.JTextField KabupatenEditPopulationsTf;
+    private javax.swing.JComboBox<String> KabupatenProvinsiComboBox;
+    private javax.swing.JTable KabupatenTable;
+    private javax.swing.JPanel KabupateniPanel;
     private javax.swing.JScrollPane MainPanel;
     private javax.swing.JButton ProvinsiAddButtonBack;
     private javax.swing.JButton ProvinsiAddButtonSave;
@@ -691,6 +1186,8 @@ public class ApiJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField ProvinsiEditPopulationsTf;
     private javax.swing.JPanel ProvinsiPanel;
     private javax.swing.JTable ProvinsiTable;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
