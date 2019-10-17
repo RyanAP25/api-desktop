@@ -79,6 +79,7 @@ public class ApiJFrame extends javax.swing.JFrame {
         ProvinsiEditPopulationsTf = new javax.swing.JTextField();
         ProvinsiEditIdWeatherLabel = new javax.swing.JLabel();
         ProvinsiEditIdWeatherTf = new javax.swing.JTextField();
+        ProvinsiEditErrorName = new javax.swing.JLabel();
         ProvinsiAddPanel = new javax.swing.JPanel();
         ProvinsiAddButtonSave = new javax.swing.JButton();
         ProvinsiAddButtonBack = new javax.swing.JButton();
@@ -209,6 +210,11 @@ public class ApiJFrame extends javax.swing.JFrame {
         ProvinsiEditButtonSave.setFont(new java.awt.Font("Raleway", 1, 11)); // NOI18N
         ProvinsiEditButtonSave.setForeground(new java.awt.Color(255, 255, 255));
         ProvinsiEditButtonSave.setText("Simpan");
+        ProvinsiEditButtonSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProvinsiEditButtonSaveActionPerformed(evt);
+            }
+        });
 
         ProvinsiEditIdLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         ProvinsiEditIdLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -228,6 +234,9 @@ public class ApiJFrame extends javax.swing.JFrame {
         ProvinsiEditIdWeatherLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         ProvinsiEditIdWeatherLabel.setForeground(new java.awt.Color(255, 255, 255));
         ProvinsiEditIdWeatherLabel.setText("Id Weather (OpenWeather Id) :");
+
+        ProvinsiEditErrorName.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        ProvinsiEditErrorName.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout ProvinsiEditPanelLayout = new javax.swing.GroupLayout(ProvinsiEditPanel);
         ProvinsiEditPanel.setLayout(ProvinsiEditPanelLayout);
@@ -249,11 +258,17 @@ public class ApiJFrame extends javax.swing.JFrame {
                         .addGap(497, 850, Short.MAX_VALUE))
                     .addGroup(ProvinsiEditPanelLayout.createSequentialGroup()
                         .addGroup(ProvinsiEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ProvinsiEditNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ProvinsiEditIdWeatherTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ProvinsiEditPopulationsTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ProvinsiEditIdWeatherLabel))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(ProvinsiEditPanelLayout.createSequentialGroup()
+                                .addComponent(ProvinsiEditNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ProvinsiEditErrorName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(ProvinsiEditPanelLayout.createSequentialGroup()
+                                .addGroup(ProvinsiEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ProvinsiEditIdWeatherTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ProvinsiEditPopulationsTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ProvinsiEditIdWeatherLabel))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(10, 10, 10))))
         );
         ProvinsiEditPanelLayout.setVerticalGroup(
             ProvinsiEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,7 +280,9 @@ public class ApiJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ProvinsiEditNameLabel)
                 .addGap(1, 1, 1)
-                .addComponent(ProvinsiEditNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(ProvinsiEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ProvinsiEditErrorName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ProvinsiEditNameTf, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
                 .addGap(27, 27, 27)
                 .addComponent(ProvinsiEditPopulationsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -425,6 +442,7 @@ public class ApiJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ProvinsiButtonEditActionPerformed
 
     private void ProvinsiEditButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvinsiEditButtonBackActionPerformed
+        clearData();
         loadData();
         tableSettings();
         MainPanel.setViewportView(ProvinsiPanel);
@@ -444,6 +462,8 @@ public class ApiJFrame extends javax.swing.JFrame {
         if (mesg.contains("Sukses!")) {
             String[] values = mesg.split("! ");
             JOptionPane.showMessageDialog(this, values[1]+"!", values[0]+"!", JOptionPane.INFORMATION_MESSAGE);
+            clearError();
+            clearForm();
         } else {
             String[] values = mesg.split("! ");
             if (values.length > 1) {
@@ -467,12 +487,44 @@ public class ApiJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ProvinsiAddButtonSaveActionPerformed
 
     private void ProvinsiAddButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvinsiAddButtonBackActionPerformed
+        clearData();
         loadData();
         tableSettings();
         clearError();
         clearForm();
         MainPanel.setViewportView(ProvinsiPanel);
     }//GEN-LAST:event_ProvinsiAddButtonBackActionPerformed
+
+    private void ProvinsiEditButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvinsiEditButtonSaveActionPerformed
+        String id = ProvinsiEditId.getText(), name = ProvinsiEditNameTf.getText(), id_weath = ProvinsiEditIdWeatherTf.getText();
+        int pop = 0;
+        if(!ProvinsiEditPopulationsTf.getText().equals("")) {
+            pop = Integer.parseInt(ProvinsiEditPopulationsTf.getText());
+        }
+        String mesg = dh.updateProvinsi(id, name, pop, id_weath);
+         if (mesg.contains("Sukses!")) {
+            String[] values = mesg.split("! ");
+            JOptionPane.showMessageDialog(this, values[1]+"!", values[0]+"!", JOptionPane.INFORMATION_MESSAGE);
+            clearError();
+            clearForm();
+        } else {
+            String[] values = mesg.split("! ");
+            if (values.length > 1) {
+                if (!values[1].contains("Kode") && !values[0].contains("Nama")) {
+                    clearError();
+                    ProvinsiEditErrorName.setText(values[0] + "!");
+                }
+            } else {
+                if (values[0].contains("Kode")) {
+                    clearError();
+                    ProvinsiAddErrorLabelId.setText(values[0] + "!");
+                } else {
+                    clearError();
+                    ProvinsiEditErrorName.setText(values[0] + "!");
+                }
+            }
+        }
+    }//GEN-LAST:event_ProvinsiEditButtonSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -508,6 +560,13 @@ public class ApiJFrame extends javax.swing.JFrame {
                 new ApiJFrame().setVisible(true);
             }
         });
+    }
+    
+    private void clearData() {
+        DefaultTableModel provdm = (DefaultTableModel) ProvinsiTable.getModel();
+        while(provdm.getRowCount() > 0 ) {
+            provdm.removeRow(0);
+        }
     }
 
     private void loadData() {
@@ -549,11 +608,17 @@ public class ApiJFrame extends javax.swing.JFrame {
         ProvinsiAddNametf.setText("");
         ProvinsiAddIdWeatherTf.setText("");
         ProvinsiAddPopulationTf.setText("");
+        //Edit
+        ProvinsiEditId.setText("");
+        ProvinsiEditNameTf.setText("");
+        ProvinsiEditPopulationsTf.setText("");
+        ProvinsiEditIdWeatherTf.setText("");
     }
 
     private void clearError() {
         ProvinsiAddErrorLabelId.setText("");
         ProvinsiAddErrorLabelName.setText("");
+        ProvinsiEditErrorName.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -577,6 +642,7 @@ public class ApiJFrame extends javax.swing.JFrame {
     private javax.swing.JButton ProvinsiButtonEdit;
     private javax.swing.JButton ProvinsiEditButtonBack;
     private javax.swing.JButton ProvinsiEditButtonSave;
+    private javax.swing.JLabel ProvinsiEditErrorName;
     private javax.swing.JLabel ProvinsiEditId;
     private javax.swing.JLabel ProvinsiEditIdLabel;
     private javax.swing.JLabel ProvinsiEditIdWeatherLabel;
