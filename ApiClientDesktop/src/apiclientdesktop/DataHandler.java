@@ -38,7 +38,7 @@ public class DataHandler {
     public ArrayList<Provinsi> getAllProvinsi() {
         ArrayList<Provinsi> data = new ArrayList<>();
         try {
-            URL url = new URL("http://localhost/api-server/api/provinsi");
+            URL url = new URL("http://utsppk.000webhostapp.com/api/provinsi");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
@@ -79,7 +79,7 @@ public class DataHandler {
     public Provinsi getProvinsi(String id) {
         Provinsi p = new Provinsi();
         try {
-            URL u = new URL("http://localhost/api-server/api/provinsi?idprov=" + id);
+            URL u = new URL("http://utsppk.000webhostapp.com/api/provinsi?idprov=" + id);
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
             JSONParser par = new JSONParser();
             conn.setRequestMethod("GET");
@@ -126,7 +126,7 @@ public class DataHandler {
         JSONParser par = new JSONParser();
         String mesg = null;
         try {
-            URL u = new URL("http://localhost/api-server/api/provinsi");
+            URL u = new URL("http://utsppk.000webhostapp.com/api/provinsi");
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
             conn.setRequestMethod("POST");
             conn.setDoInput(true);
@@ -179,9 +179,9 @@ public class DataHandler {
         postDataParams.put("populations", String.valueOf(populations));
         postDataParams.put("id_weather", id_wether);
         try {
-            URL u = new URL("http://localhost/api-server/api/provinsi");
+            URL u = new URL("http://utsppk.000webhostapp.com/api/provinsi/put");
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
-            conn.setRequestMethod("PUT");
+            conn.setRequestMethod("POST");
             conn.setDoInput(true);
             conn.setDoOutput(true);
 
@@ -229,9 +229,9 @@ public class DataHandler {
         postDataParams.put("id", id);
         String mesg = null;
         try {
-            URL u = new URL("http://localhost/api-server/api/provinsi");
+            URL u = new URL("http://utsppk.000webhostapp.com/api/provinsi/delete");
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
-            conn.setRequestMethod("DELETE");
+            conn.setRequestMethod("POST");
             conn.setDoInput(true);
             conn.setDoOutput(true);
 
