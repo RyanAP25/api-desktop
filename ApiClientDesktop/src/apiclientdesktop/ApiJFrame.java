@@ -116,6 +116,22 @@ public class ApiJFrame extends javax.swing.JFrame {
         KabupatenButtonDelete = new javax.swing.JButton();
         KabupatenButtonAdd = new javax.swing.JButton();
         KabupatenProvinsiComboBox = new javax.swing.JComboBox<>();
+        KabupatenAddPanel = new javax.swing.JPanel();
+        KabupatenAddButtonSave = new javax.swing.JButton();
+        KabupatenAddButtonBack = new javax.swing.JButton();
+        KabupateniAddIdProvLabel = new javax.swing.JLabel();
+        KabupateniAddIdProvTf = new javax.swing.JTextField();
+        KabupatenAddErrorLabelIdProv = new javax.swing.JLabel();
+        KabupatenAddNameLabel = new javax.swing.JLabel();
+        KabupatenAddNameTf = new javax.swing.JTextField();
+        KabupatenAddErrorLabelName = new javax.swing.JLabel();
+        KabupatenAddPopulationTf = new javax.swing.JTextField();
+        KabupatenAddPopulationLabel = new javax.swing.JLabel();
+        KabupateniAddIdWeatherLabel = new javax.swing.JLabel();
+        KabupatenAddIdWeatherTf = new javax.swing.JTextField();
+        KabupateniAddIdTf = new javax.swing.JTextField();
+        KabupateniAddIdLabel = new javax.swing.JLabel();
+        KabupatenAddErrorLabelId = new javax.swing.JLabel();
         KabupatenEditPanel = new javax.swing.JPanel();
         KabupatenEditButtonBack = new javax.swing.JButton();
         KabupatenEditButtonSave = new javax.swing.JButton();
@@ -129,8 +145,10 @@ public class ApiJFrame extends javax.swing.JFrame {
         KabupatenEditIdWeatherTf = new javax.swing.JTextField();
         KabupatenEditErrorName = new javax.swing.JLabel();
         KabupatenEditIdTf = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        KabupatenEditIdProvLabel = new javax.swing.JLabel();
         KabupatenEditIdProvTf = new javax.swing.JTextField();
+        KabupatenEditErrorId = new javax.swing.JLabel();
+        KabupatenEditOldId = new javax.swing.JLabel();
         MainPanel = new javax.swing.JScrollPane();
 
         DashboardPanel.setBackground(new java.awt.Color(102, 102, 102));
@@ -666,6 +684,135 @@ public class ApiJFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        KabupatenAddPanel.setBackground(new java.awt.Color(102, 102, 102));
+
+        KabupatenAddButtonSave.setBackground(new java.awt.Color(0, 153, 0));
+        KabupatenAddButtonSave.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        KabupatenAddButtonSave.setForeground(new java.awt.Color(255, 255, 255));
+        KabupatenAddButtonSave.setText("Simpan");
+        KabupatenAddButtonSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KabupatenAddButtonSaveActionPerformed(evt);
+            }
+        });
+
+        KabupatenAddButtonBack.setBackground(new java.awt.Color(0, 51, 153));
+        KabupatenAddButtonBack.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        KabupatenAddButtonBack.setForeground(new java.awt.Color(255, 255, 255));
+        KabupatenAddButtonBack.setText("Kembali");
+        KabupatenAddButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KabupatenAddButtonBackActionPerformed(evt);
+            }
+        });
+
+        KabupateniAddIdProvLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        KabupateniAddIdProvLabel.setForeground(new java.awt.Color(255, 255, 255));
+        KabupateniAddIdProvLabel.setLabelFor(ProvinsiAddIdTf);
+        KabupateniAddIdProvLabel.setText("Id Provinsi :");
+
+        KabupateniAddIdProvTf.setEditable(false);
+
+        KabupatenAddErrorLabelIdProv.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        KabupatenAddErrorLabelIdProv.setForeground(new java.awt.Color(204, 0, 0));
+
+        KabupatenAddNameLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        KabupatenAddNameLabel.setForeground(new java.awt.Color(255, 255, 255));
+        KabupatenAddNameLabel.setLabelFor(ProvinsiAddNametf);
+        KabupatenAddNameLabel.setText("Nama Kabupaten :");
+
+        KabupatenAddErrorLabelName.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        KabupatenAddErrorLabelName.setForeground(new java.awt.Color(204, 0, 0));
+
+        KabupatenAddPopulationLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        KabupatenAddPopulationLabel.setForeground(new java.awt.Color(255, 255, 255));
+        KabupatenAddPopulationLabel.setLabelFor(ProvinsiAddPopulationTf);
+        KabupatenAddPopulationLabel.setText("Populasi :");
+
+        KabupateniAddIdWeatherLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        KabupateniAddIdWeatherLabel.setForeground(new java.awt.Color(255, 255, 255));
+        KabupateniAddIdWeatherLabel.setLabelFor(ProvinsiAddIdWeatherTf);
+        KabupateniAddIdWeatherLabel.setText("Id Weather (OpenWeather Id) :");
+
+        KabupateniAddIdLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        KabupateniAddIdLabel.setForeground(new java.awt.Color(255, 255, 255));
+        KabupateniAddIdLabel.setLabelFor(ProvinsiAddIdTf);
+        KabupateniAddIdLabel.setText("Id Kabupaten :");
+
+        KabupatenAddErrorLabelId.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        KabupatenAddErrorLabelId.setForeground(new java.awt.Color(204, 0, 0));
+
+        javax.swing.GroupLayout KabupatenAddPanelLayout = new javax.swing.GroupLayout(KabupatenAddPanel);
+        KabupatenAddPanel.setLayout(KabupatenAddPanelLayout);
+        KabupatenAddPanelLayout.setHorizontalGroup(
+            KabupatenAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(KabupatenAddPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(KabupatenAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(KabupatenAddPanelLayout.createSequentialGroup()
+                        .addComponent(KabupatenAddButtonSave)
+                        .addGap(5, 5, 5)
+                        .addComponent(KabupatenAddButtonBack)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(KabupatenAddPanelLayout.createSequentialGroup()
+                        .addGroup(KabupatenAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(KabupatenAddPopulationTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(KabupatenAddPopulationLabel)
+                            .addComponent(KabupatenAddIdWeatherTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(KabupateniAddIdWeatherLabel)
+                            .addComponent(KabupateniAddIdProvTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(KabupateniAddIdTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(KabupateniAddIdProvLabel)
+                            .addComponent(KabupateniAddIdLabel)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, KabupatenAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(KabupatenAddNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(KabupatenAddNameLabel)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(KabupatenAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(KabupatenAddErrorLabelName, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                            .addComponent(KabupatenAddErrorLabelId, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                            .addComponent(KabupatenAddErrorLabelIdProv, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        KabupatenAddPanelLayout.setVerticalGroup(
+            KabupatenAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, KabupatenAddPanelLayout.createSequentialGroup()
+                .addComponent(KabupateniAddIdProvLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(KabupatenAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(KabupatenAddPanelLayout.createSequentialGroup()
+                        .addComponent(KabupateniAddIdProvTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(KabupateniAddIdLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(KabupatenAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(KabupatenAddErrorLabelId, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(KabupateniAddIdTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(KabupatenAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(KabupatenAddErrorLabelName, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(KabupatenAddPanelLayout.createSequentialGroup()
+                                .addComponent(KabupatenAddNameLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(KabupatenAddNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(KabupatenAddPopulationLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(KabupatenAddPopulationTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(KabupateniAddIdWeatherLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(KabupatenAddIdWeatherTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addGroup(KabupatenAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(KabupatenAddButtonBack)
+                            .addComponent(KabupatenAddButtonSave)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, KabupatenAddPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(KabupatenAddErrorLabelIdProv, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18))
+        );
+
         KabupatenEditPanel.setBackground(new java.awt.Color(102, 102, 102));
 
         KabupatenEditButtonBack.setBackground(new java.awt.Color(153, 153, 0));
@@ -710,9 +857,14 @@ public class ApiJFrame extends javax.swing.JFrame {
         KabupatenEditErrorName.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         KabupatenEditErrorName.setForeground(new java.awt.Color(255, 0, 0));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Id Provinsi :");
+        KabupatenEditIdProvLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        KabupatenEditIdProvLabel.setForeground(new java.awt.Color(255, 255, 255));
+        KabupatenEditIdProvLabel.setText("Id Provinsi :");
+
+        KabupatenEditIdProvTf.setEditable(false);
+
+        KabupatenEditErrorId.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        KabupatenEditErrorId.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout KabupatenEditPanelLayout = new javax.swing.GroupLayout(KabupatenEditPanel);
         KabupatenEditPanel.setLayout(KabupatenEditPanelLayout);
@@ -726,62 +878,74 @@ public class ApiJFrame extends javax.swing.JFrame {
                             .addComponent(KabupatenEditButtonBack)
                             .addComponent(KabupatenEditButtonSave)
                             .addGroup(KabupatenEditPanelLayout.createSequentialGroup()
-                                .addComponent(KabupatenEditIdLabel)
+                                .addGroup(KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(KabupatenEditIdProvLabel)
+                                    .addComponent(KabupatenEditIdProvTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(KabupatenEditId)))
-                        .addGap(512, 858, Short.MAX_VALUE))
+                        .addGap(512, 661, Short.MAX_VALUE))
                     .addGroup(KabupatenEditPanelLayout.createSequentialGroup()
                         .addGroup(KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(KabupatenEditIdTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(KabupatenEditErrorName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(10, 10, 10))
-                    .addGroup(KabupatenEditPanelLayout.createSequentialGroup()
-                        .addGroup(KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(KabupatenEditIdProvTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(KabupatenEditNameLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(KabupatenEditNameTf)
-                                .addComponent(KabupatenEditIdWeatherTf)
-                                .addComponent(KabupatenEditIdWeatherLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(KabupatenEditPopulationsLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(KabupatenEditPopulationsTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(KabupatenEditPanelLayout.createSequentialGroup()
+                                .addComponent(KabupatenEditNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(KabupatenEditErrorName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(KabupatenEditPanelLayout.createSequentialGroup()
+                                .addComponent(KabupatenEditIdTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(KabupatenEditErrorId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(KabupatenEditPanelLayout.createSequentialGroup()
+                                .addGroup(KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(KabupatenEditIdLabel)
+                                    .addComponent(KabupatenEditNameLabel)
+                                    .addGroup(KabupatenEditPanelLayout.createSequentialGroup()
+                                        .addGroup(KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(KabupatenEditIdWeatherTf)
+                                            .addComponent(KabupatenEditIdWeatherLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(KabupatenEditPopulationsLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(KabupatenEditPopulationsTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(KabupatenEditOldId, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         KabupatenEditPanelLayout.setVerticalGroup(
             KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(KabupatenEditPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(KabupatenEditIdLabel)
-                    .addComponent(KabupatenEditId))
                 .addGroup(KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(KabupatenEditPanelLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(KabupatenEditErrorName, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(87, 87, 87)
+                        .addComponent(KabupatenEditId))
                     .addGroup(KabupatenEditPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(KabupatenEditIdProvLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(KabupatenEditIdProvTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(KabupatenEditIdLabel)
                         .addGap(1, 1, 1)
-                        .addComponent(KabupatenEditIdTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel1)))
+                        .addGroup(KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(KabupatenEditIdTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(KabupatenEditErrorId, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(KabupatenEditIdProvTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
                 .addComponent(KabupatenEditNameLabel)
-                .addGap(1, 1, 1)
-                .addComponent(KabupatenEditNameTf, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(KabupatenEditNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(KabupatenEditErrorName, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(KabupatenEditPopulationsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(KabupatenEditPopulationsTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(KabupatenEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(KabupatenEditPopulationsTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(KabupatenEditOldId, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(KabupatenEditIdWeatherLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(KabupatenEditIdWeatherTf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(KabupatenEditButtonSave)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(KabupatenEditButtonBack)
                 .addContainerGap())
         );
@@ -956,21 +1120,46 @@ public class ApiJFrame extends javax.swing.JFrame {
         } else {
             String idkab = KabupatenTable.getValueAt(i, 0).toString();
             Kabupaten kab = dh.getKabupaten(idkab);
-            KabupatenEditIdTf.setText(kab.getId());
+            KabupatenEditIdTf.setText(kab.getId().substring(2));
             KabupatenEditIdProvTf.setText(kab.getProvince_id());
             KabupatenEditNameTf.setText(kab.getName());
             KabupatenEditPopulationsTf.setText(String.valueOf(kab.getPopulations()));
             KabupatenEditIdWeatherTf.setText(kab.getId_weather());
+            KabupatenEditIdLabel.setText("Id Kabupaten ("+kab.getProvince_id()+" + Kode) :");
+            KabupatenEditOldId.setText(kab.getId());
+            KabupatenEditOldId.setVisible(false);
             MainPanel.setViewportView(KabupatenEditPanel);
         }
     }//GEN-LAST:event_KabupatenButtonEditActionPerformed
 
     private void KabupatenButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KabupatenButtonDeleteActionPerformed
-        // TODO add your handling code here:
+        int i = KabupatenTable.getSelectedRow();
+        if (i < 0) {
+            JOptionPane.showMessageDialog(this, "Pilih data yang ingin dihapus!", "Gagal!", JOptionPane.WARNING_MESSAGE);
+        } else {
+            int ans = JOptionPane.showConfirmDialog(this, "Apakah anda ingin menghapus data yang dipilih?", "Hapus", JOptionPane.YES_NO_CANCEL_OPTION);
+            if (ans == JOptionPane.YES_OPTION) {
+                String idkab = KabupatenTable.getValueAt(i, 0).toString();
+                String idprov = KabupatenTable.getValueAt(i, 4).toString();
+                String mesg = dh.deleteKabupaten(idkab);
+                if (mesg.contains("Sukses!")) {
+                    String[] values = mesg.split("! ");
+                    JOptionPane.showMessageDialog(this, values[1] + "!", values[0] + "!", JOptionPane.INFORMATION_MESSAGE);
+                    clearData();
+                    loadData(idprov);
+                } else {
+                    String[] values = mesg.split("! ");
+                    JOptionPane.showMessageDialog(this, values[0] + "!");
+                }
+            }
+        }
     }//GEN-LAST:event_KabupatenButtonDeleteActionPerformed
 
     private void KabupatenButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KabupatenButtonAddActionPerformed
-        // TODO add your handling code here:
+        String[] idprov = KabupatenProvinsiComboBox.getSelectedItem().toString().split("-");
+        KabupateniAddIdProvTf.setText(idprov[0]);
+        KabupateniAddIdLabel.setText("Id Kabupaten ("+idprov[0]+" + Dua Digit Kode) :");
+        MainPanel.setViewportView(KabupatenAddPanel);
     }//GEN-LAST:event_KabupatenButtonAddActionPerformed
 
     private void DashboardButtonKabupatenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashboardButtonKabupatenActionPerformed
@@ -985,14 +1174,89 @@ public class ApiJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_KabupatenProvinsiComboBoxItemStateChanged
 
     private void KabupatenEditButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KabupatenEditButtonBackActionPerformed
-        clearForm();
+        clearData();
+        loadData(KabupatenEditIdProvTf.getText());
+        tableSettings();
         clearError();
+        clearForm();
         MainPanel.setViewportView(KabupateniPanel);
     }//GEN-LAST:event_KabupatenEditButtonBackActionPerformed
 
     private void KabupatenEditButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KabupatenEditButtonSaveActionPerformed
-        // TODO add your handling code here:
+         String id = KabupatenEditIdProvTf.getText() + KabupatenEditIdTf.getText(), name = KabupatenEditNameTf.getText();
+         String id_weath = KabupatenEditIdWeatherTf.getText(), idprov = KabupatenEditIdProvTf.getText();
+         String oldId = KabupatenEditOldId.getText();
+        int pop = 0;
+        if (!KabupatenEditPopulationsTf.getText().equals("")) {
+            pop = Integer.parseInt(KabupatenEditPopulationsTf.getText());
+        }
+        String mesg = dh.updateKabupaten(idprov, id, name, pop, id_weath, oldId);
+        if (mesg.contains("Sukses!")) {
+            String[] values = mesg.split("! ");
+            JOptionPane.showMessageDialog(this, values[1] + "!", values[0] + "!", JOptionPane.INFORMATION_MESSAGE);
+            clearError();
+        } else {
+            String[] values = mesg.split("! ");
+            if (values.length > 1) {
+                if (!values[1].contains("Kode") && !values[0].contains("Nama")) {
+                    clearError();
+                    KabupatenEditErrorId.setText(values[0] + "!");
+                    KabupatenEditErrorName.setText(values[1] + "!");
+                }
+            } else {
+                if (values[0].contains("Kode")) {
+                    clearError();
+                    KabupatenEditErrorId.setText(values[0] + "!");
+                } else {
+                    clearError();
+                    KabupatenEditErrorName.setText(values[0] + "!");
+                }
+            }
+        }
     }//GEN-LAST:event_KabupatenEditButtonSaveActionPerformed
+
+    private void KabupatenAddButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KabupatenAddButtonSaveActionPerformed
+        String idprov = KabupateniAddIdProvTf.getText(), name = KabupatenAddNameTf.getText(), idweather = KabupatenAddIdWeatherTf.getText();
+        String id = idprov + KabupateniAddIdTf.getText();
+        int pop = 0;
+        if (!KabupatenAddPopulationTf.getText().equals("")) {
+            pop = Integer.parseInt(KabupatenAddPopulationTf.getText());
+        }
+        String mesg = dh.addKabupaten(idprov, id, name, pop, idweather);
+        if (mesg.contains("Sukses!")) {
+            String[] values = mesg.split("! ");
+            JOptionPane.showMessageDialog(this, values[1] + "!", values[0] + "!", JOptionPane.INFORMATION_MESSAGE);
+            clearError();
+        } else {
+            String[] values = mesg.split("! ");
+            if (values.length > 1) {
+                if (!values[1].contains("Kode") && !values[0].contains("Nama")) {
+                    clearError();
+                    KabupatenAddErrorLabelId.setText(values[0] + "!");
+                    KabupatenAddErrorLabelName.setText(values[1] + "!");
+                }
+            } else {
+                if (values[0].contains("Kode")) {
+                    clearError();
+                    KabupatenAddErrorLabelName.setText("");
+                    KabupatenAddErrorLabelId.setText(values[0] + "!");
+                } else {
+                    clearError();
+                    KabupatenAddErrorLabelId.setText("");
+                    KabupatenAddErrorLabelName.setText(values[0] + "!");
+                }
+            }
+        }
+    }//GEN-LAST:event_KabupatenAddButtonSaveActionPerformed
+
+    private void KabupatenAddButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KabupatenAddButtonBackActionPerformed
+        clearData();
+        loadData(KabupateniAddIdProvTf.getText());
+        tableSettings();
+        clearError();
+        clearForm();
+        MainPanel.setViewportView(KabupateniPanel);
+    }//GEN-LAST:event_KabupatenAddButtonBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1042,7 +1306,7 @@ public class ApiJFrame extends javax.swing.JFrame {
         }
     }
 
-    private void loadData(String idkab) {
+    private void loadData(String idprov) {
         DefaultTableModel provdm = (DefaultTableModel) ProvinsiTable.getModel();
         List<Provinsi> provinsi = dh.getAllProvinsi();
         for (int i = 0; i < provinsi.size(); i++) {
@@ -1054,7 +1318,7 @@ public class ApiJFrame extends javax.swing.JFrame {
             });
         }
         DefaultTableModel kabdm = (DefaultTableModel) KabupatenTable.getModel();
-        List<Kabupaten> kabupaten = dh.getAllKabupaten(idkab);
+        List<Kabupaten> kabupaten = dh.getAllKabupaten(idprov);
         for (int i = 0; i < kabupaten.size(); i++) {
             kabdm.addRow(new Object[]{
                 kabupaten.get(i).getId(),
@@ -1111,6 +1375,12 @@ public class ApiJFrame extends javax.swing.JFrame {
         ProvinsiEditIdWeatherTf.setText("");
 
         //Kabupaten
+        //Add
+        KabupateniAddIdTf.setText("");
+        KabupateniAddIdProvTf.setText("");
+        KabupatenAddIdWeatherTf.setText("");
+        KabupatenAddNameTf.setText("");
+        KabupatenAddPopulationTf.setText("");
         //Edit
         KabupatenEditIdProvTf.setText("");
         KabupatenEditIdTf.setText("");
@@ -1120,9 +1390,21 @@ public class ApiJFrame extends javax.swing.JFrame {
     }
 
     private void clearError() {
+        //Provinsi
+        //Add
         ProvinsiAddErrorLabelId.setText("");
         ProvinsiAddErrorLabelName.setText("");
         ProvinsiEditErrorName.setText("");
+        //Edit
+        ProvinsiEditErrorName.setText("");
+        //Kabupaten
+        //Add
+        KabupatenAddErrorLabelId.setText("");
+        KabupatenAddErrorLabelIdProv.setText("");
+        KabupatenAddErrorLabelName.setText("");
+        //Edit
+        KabupatenEditErrorId.setText("");
+        KabupatenEditErrorName.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1133,26 +1415,45 @@ public class ApiJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel DashboardPanel;
     private javax.swing.JLabel DashboardTitleLabel;
     private javax.swing.JPanel DashboardTitlePanel;
+    private javax.swing.JButton KabupatenAddButtonBack;
+    private javax.swing.JButton KabupatenAddButtonSave;
+    private javax.swing.JLabel KabupatenAddErrorLabelId;
+    private javax.swing.JLabel KabupatenAddErrorLabelIdProv;
+    private javax.swing.JLabel KabupatenAddErrorLabelName;
+    private javax.swing.JTextField KabupatenAddIdWeatherTf;
+    private javax.swing.JLabel KabupatenAddNameLabel;
+    private javax.swing.JTextField KabupatenAddNameTf;
+    private javax.swing.JPanel KabupatenAddPanel;
+    private javax.swing.JLabel KabupatenAddPopulationLabel;
+    private javax.swing.JTextField KabupatenAddPopulationTf;
     private javax.swing.JButton KabupatenButtonAdd;
     private javax.swing.JButton KabupatenButtonBack;
     private javax.swing.JButton KabupatenButtonDelete;
     private javax.swing.JButton KabupatenButtonEdit;
     private javax.swing.JButton KabupatenEditButtonBack;
     private javax.swing.JButton KabupatenEditButtonSave;
+    private javax.swing.JLabel KabupatenEditErrorId;
     private javax.swing.JLabel KabupatenEditErrorName;
     private javax.swing.JLabel KabupatenEditId;
     private javax.swing.JLabel KabupatenEditIdLabel;
+    private javax.swing.JLabel KabupatenEditIdProvLabel;
     private javax.swing.JTextField KabupatenEditIdProvTf;
     private javax.swing.JTextField KabupatenEditIdTf;
     private javax.swing.JLabel KabupatenEditIdWeatherLabel;
     private javax.swing.JTextField KabupatenEditIdWeatherTf;
     private javax.swing.JLabel KabupatenEditNameLabel;
     private javax.swing.JTextField KabupatenEditNameTf;
+    private javax.swing.JLabel KabupatenEditOldId;
     private javax.swing.JPanel KabupatenEditPanel;
     private javax.swing.JLabel KabupatenEditPopulationsLabel;
     private javax.swing.JTextField KabupatenEditPopulationsTf;
     private javax.swing.JComboBox<String> KabupatenProvinsiComboBox;
     private javax.swing.JTable KabupatenTable;
+    private javax.swing.JLabel KabupateniAddIdLabel;
+    private javax.swing.JLabel KabupateniAddIdProvLabel;
+    private javax.swing.JTextField KabupateniAddIdProvTf;
+    private javax.swing.JTextField KabupateniAddIdTf;
+    private javax.swing.JLabel KabupateniAddIdWeatherLabel;
     private javax.swing.JPanel KabupateniPanel;
     private javax.swing.JScrollPane MainPanel;
     private javax.swing.JButton ProvinsiAddButtonBack;
@@ -1186,7 +1487,6 @@ public class ApiJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField ProvinsiEditPopulationsTf;
     private javax.swing.JPanel ProvinsiPanel;
     private javax.swing.JTable ProvinsiTable;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables

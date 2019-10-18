@@ -12,7 +12,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -127,7 +126,6 @@ public class DataHandler {
         JSONParser par = new JSONParser();
         String mesg = null;
         try {
-
             URL u = new URL("http://localhost/api-server/api/provinsi");
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
             conn.setRequestMethod("POST");
@@ -375,6 +373,177 @@ public class DataHandler {
         return kab;
     }
 
+    public String addKabupaten(String idprov, String id, String name, int populations, String id_weather) {
+        //Insisiasi variabel yang akan di return
+        String mesg = null;
+        //Menyimpan data-data parameter yang akan dikirim
+        HashMap<String, String> postDataParams = new HashMap<>();
+        postDataParams.put("id", id);
+        postDataParams.put("province_id", idprov);
+        postDataParams.put("name", name);
+        postDataParams.put("populations", String.valueOf(populations));
+        postDataParams.put("id_weather", id_weather);
+        //Insisiasi parser JSON
+        JSONParser par = new JSONParser();
+        //Melakukan koneksi ke Web Service
+        try {
+            //Inisiasi Url
+            URL u = new URL("http://localhost/api-server/api/kabupaten");
+            //Mencoba open koneksi ke URL
+            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+            //Mengatur parameter koneksi
+            conn.setRequestMethod("POST");
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            //Menginisiasi Output Stream untuk mengirim param
+            OutputStream os = conn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            writer.write(getPostDataString(postDataParams));
+            writer.flush();
+            writer.close();
+            os.close();
+            int responseCode = conn.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_CREATED) {
+                String line, response = null;
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                while ((line = br.readLine()) != null) {
+                    response += line;
+                }
+                response = response.substring(4);
+                Document document = Jsoup.parse(response);
+                Element table = document.select("table").first();
+                String td = table.select("td").text();
+                mesg = td;
+            }
+            if (responseCode == 400) {
+                String line, response = null;
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                while ((line = br.readLine()) != null) {
+                    response += line;
+                }
+                response = response.substring(4);
+                Document document = Jsoup.parse(response);
+                Element table = document.select("table").first();
+                String td = table.select("td").text();
+                mesg = td;
+            }
+
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return mesg;
+    }
+    
+    public String updateKabupaten(String idprov, String id, String name, int populations, String id_weather, String oldid) {
+        String mesg = null;
+        HashMap<String, String> postDataParams = new HashMap<>();
+        postDataParams.put("id", id);
+        postDataParams.put("province_id", idprov);
+        postDataParams.put("old_id", oldid);
+        postDataParams.put("name", name);
+        postDataParams.put("populations", String.valueOf(populations));
+        postDataParams.put("id_weather", id_weather);
+        try {
+            URL u = new URL("http://localhost/api-server/api/kabupaten");
+            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+            conn.setRequestMethod("PUT");
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+
+            OutputStream os = conn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            writer.write(getPostDataString(postDataParams));
+            writer.flush();
+            writer.close();
+            os.close();
+            int responseCode = conn.getResponseCode();
+            if (responseCode == 200) {
+                String line, response = null;
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                while ((line = br.readLine()) != null) {
+                    response += line;
+                }
+                response = response.substring(4);
+                Document document = Jsoup.parse(response);
+                Element table = document.select("table").first();
+                String td = table.select("td").text();
+                mesg = td;
+            }
+            if (responseCode == 400) {
+                String line, response = null;
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                while ((line = br.readLine()) != null) {
+                    response += line;
+                }
+                response = response.substring(4);
+                Document document = Jsoup.parse(response);
+                Element table = document.select("table").first();
+                String td = table.select("td").text();
+                mesg = td;
+            }
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return mesg;
+    }
+    
+    public String deleteKabupaten(String id) {
+        String mesg = null;
+         HashMap<String, String> postDataParams = new HashMap<>();
+        postDataParams.put("id", id);
+        try {
+            URL u = new URL("http://localhost/api-server/api/kabupaten");
+            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+            conn.setRequestMethod("DELETE");
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+
+            OutputStream os = conn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            writer.write(getPostDataString(postDataParams));
+            writer.flush();
+            writer.close();
+            os.close();
+            int responseCode = conn.getResponseCode();
+            if (responseCode == 200) {
+                String line, response = null;
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                while ((line = br.readLine()) != null) {
+                    response += line;
+                }
+                response = response.substring(4);
+                Document document = Jsoup.parse(response);
+                Element table = document.select("table").first();
+                String td = table.select("td").text();
+                mesg = td;
+            }
+            if (responseCode == 400) {
+                String line, response = null;
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                while ((line = br.readLine()) != null) {
+                    response += line;
+                }
+                response = response.substring(4);
+                Document document = Jsoup.parse(response);
+                Element table = document.select("table").first();
+                String td = table.select("td").text();
+                mesg = td;
+            }
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return mesg;
+    }
+
+    //Mengatur format data yang dikirim agar sesuai standar
+    //misal : "name" => nama, "id"=id pada hashmap akan diubah menjadi ?name=nama&id=id 
     private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
         StringBuilder result = new StringBuilder();
         boolean first = true;
